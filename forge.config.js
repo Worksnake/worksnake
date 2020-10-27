@@ -1,7 +1,14 @@
 module.exports = {
     packagerConfig: {
         asar: true,
-        icon: "src/assets/logo.icns"
+        icon: "src/assets/logo.icns",
+        arch: [
+            "x64"
+        ],
+        platform: [
+            "darwin",
+            "win32"
+        ]
     },
     makers: [
         {
