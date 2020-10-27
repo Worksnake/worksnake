@@ -1,0 +1,84 @@
+<head>
+    <script>
+        var cancelled = false
+    </script>
+    <script>
+        function buttonClose() {
+
+            window.innerWidth = 0;
+            window.innerHeight = 0;
+
+            cancelled = true
+
+            require('electron').ipcRenderer.send('hide', id)
+
+            setTimeout(() => {
+                require('electron').ipcRenderer.send('show', id)
+                start()
+            }, cancel * 1000)
+
+            //window.close()
+        }
+    </script>
+</head>
+<body style="overflow: hidden;">
+    <p id="text"></p>
+    <script>
+        {
+            const el = document.getElementById('text')
+            el.innerHTML = `${interval} break!`
+        }
+    </script>
+    <p id="timeLeft"></p>
+    <script>
+        function start() {
+
+            cancelled = false
+
+            const el = document.getElementById('timeLeft')
+
+            var t = time - 1
+
+            el.innerHTML = `${t + 1} seconds left`
+
+            const task = setInterval(() => {
+                el.innerHTML = `${t} seconds left`
+
+                if(cancelled) {
+                    el.innerHTML = `Cancelled`
+                    
+                    clearInterval(task)
+                    clearInterval(task2)
+                }
+
+                if(t < 1) {
+                    window.close()
+                }
+
+                t--
+            }, 1000)
+
+            var prev
+
+            const task2 = setInterval(() => {
+                const cursorScreenPoint = require('electron').remote.screen.getCursorScreenPoint()
+
+                if(!prev) {
+                    prev = cursorScreenPoint
+                    return
+                }
+
+                if(cursorScreenPoint.x !== prev.x || cursorScreenPoint.y !== prev.y) {
+                    t = time
+                    el.innerHTML = `${t} seconds left`
+                }
+
+                prev = cursorScreenPoint
+            }, 100)
+        }
+    </script>
+    <script>
+        start()
+    </script>
+    <button onclick="buttonClose()">Postpone</button>
+</body>

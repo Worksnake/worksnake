@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table id="config">
+        <tr>
+            <th>Interval</th>
+            <th>Time</th>
+            <th>Postpone</th>
+        </tr>
+    </table>
+    <script>
+        const path = require('path')
+        const {app} = require('electron').remote
+
+        var cfg = require('fs').readFileSync(path.join(app.getPath('userData'), 'config.json'), {
+            encoding: 'utf-8'
+        })
+    </script>
+    <script>
+        function processConfig() {
+            const elements = document.getElementsByClassName('configRow')
+
+            var tasks = []
+
+            for(var i = 0; i < elements.length; i++) {
+                const el = elements[i]
+
+                const interval = Number(el.firstChild.innerText)
+                const time = Number(el.firstChild.nextSibling.innerText)
+                const cancel = Number(el.firstChild.nextSibling.nextSibling.innerText)
+
+                tasks.push({
+                    interval: interval === NaN ? null : interval,
+                    time: time === NaN ? null : time,
+                    cancel: cancel === NaN ? null : cancel
+                })
+            }
+
+            tasks = tasks.filter(t => t.interval && t.time && t.cancel)
+
+            cfg = JSON.stringify({tasks})
+        }
+    </script>
+    <script>
+        const c = JSON.parse(cfg)
+
+        console.log(c)
+
+        const el = document.getElementById('config')
+
+        for(var i = 0; i < c.tasks.length; i++) {            
+
+            const task = c.tasks[i]
+
+            const row = document.createElement('tr')
+            row.classList.add('configRow')
+
+            {
+                const td = document.createElement('td')
+                td.contentEditable = true
+                td.style = "border-style: solid; border-color: black; border-width: 5px;"
+
+                td.innerText = task.interval
+
+                row.appendChild(td)
+
+                td.addEventListener('input', () => {
+                    processConfig()
+                })
+            }
+
+            {
+                const td = document.createElement('td')
+                td.contentEditable = true
+                td.style = "border-style: solid; border-color: black; border-width: 5px;"
+
+                td.innerText = task.time
+
+                row.appendChild(td)
+
+                td.addEventListener('input', () => {
+                    processConfig()
+                })
+            }
+
+            {
+                const td = document.createElement('td')
+                td.contentEditable = true
+                td.style = "border-style: solid; border-color: black; border-width: 5px;"
+
+                td.innerText = task.cancel
+
+                row.appendChild(td)
+
+                td.addEventListener('input', () => {
+                    processConfig()
+                })
+            }
+
+            el.appendChild(row)
+        }
+
+        processConfig()
+    </script>
+    <script>
+        function newRow() {
+            const el = document.getElementById('config')
+
+            const row = document.createElement('tr')
+            row.classList.add('configRow')
+
+            for(var i = 0; i < 3; i++) {
+                const td = document.createElement('td')
+                td.contentEditable = true
+                td.style = "border-style: solid; border-color: black; border-width: 5px;"
+                row.appendChild(td)
+
+                td.addEventListener('input', () => {
+                    processConfig()
+                })
+            }
+
+            el.appendChild(row)
+        }
+    </script>
+    <button onclick="newRow()">New</button>
+    <script>
+        function save() {
+            require('fs').writeFileSync(path.join(app.getPath('userData'), 'config.json'), cfg, {
+                encoding: 'utf-8'
+            })
+
+            require('electron').ipcRenderer.send('relaunch')
+
+            window.close()
+        }
+    </script>
+    <button onclick="save()">Save, Exit & Restart</button>
+</body>
+</html>
