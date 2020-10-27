@@ -1,1 +1,0 @@
-const cursorScreenPoint = require('electron').remote.screen.getCursorScreenPoint()

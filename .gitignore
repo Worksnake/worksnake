@@ -3,3 +3,6 @@ node_modules
 
 #electron
 out/
+
+#dev
+src/tmp.js

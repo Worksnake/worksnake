@@ -29,6 +29,41 @@ const createTray = () => {
 
                 window.loadFile(path.join(__dirname, 'config.html'))
             }
+        },
+        {
+            label: 'Check for updates',
+            type: 'normal',
+            click: () => {
+                const {autoUpdater, dialog} = require('electron').remote
+
+                try {
+                    autoUpdater.once('checking-for-update', () => {
+                        dialog.showMessageBox(null, {
+                            message: 'Checking for updates',
+                            title: 'Worksnake updater'
+                        })
+                    })
+                    autoUpdater.once('update-available', () => {
+                        dialog.showMessageBox(null, {
+                            message: 'A new update is available\nIt will be automaticly downloaded',
+                            title: 'Worksnake updater'
+                        })
+                    })
+                    autoUpdater.once('update-not-available', () => {
+                        dialog.showMessageBox(null, {
+                            message: 'You already have the latest version',
+                            title: 'Worksnake updater'
+                        })
+                    })
+                    
+                    autoUpdater.checkForUpdates()
+                } catch {
+                    dialog.showMessageBox(null, {
+                        message: 'Failed to check for updates',
+                        title: 'Worksnake updater'
+                    })
+                }
+            }
         }
     ])
 
