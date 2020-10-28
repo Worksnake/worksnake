@@ -6,3 +6,7 @@ out/
 
 #dev
 src/tmp.js
+
+#vscode
+.vscode/
+*.code-workspace
