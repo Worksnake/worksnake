@@ -34,42 +34,52 @@ const createTray = () => {
             label: 'Check for updates',
             type: 'normal',
             click: () => {
-                const {autoUpdater, dialog, Notification} = require('electron').remote
+                const {autoUpdater, Notification} = require('electron').remote
 
                 try {
                     var n = null;
 
                     autoUpdater.once('checking-for-update', () => {
-                        n = new Notification({
+                        const popup = new Notification({
                             body: 'Checking for updates',
                             title: 'Worksnake updater'
                         })
+
+                        popup.show()
+
+                        n = popup
                     })
                     autoUpdater.once('update-available', () => {
 
                         if(n) n.close()
 
-                        new Notification({
+                        const popup = new Notification({
                             body: 'A new update is available\nIt will be automaticly downloaded',
                             title: 'Worksnake updater'
                         })
+
+                        popup.show()
                     })
                     autoUpdater.once('update-not-available', () => {
 
                         if(n) n.close()
 
-                        new Notification({
+                        const popup = new Notification({
                             body: 'You already have the latest version',
                             title: 'Worksnake updater'
                         })
+
+                        popup.show()
                     })
                     
                     autoUpdater.checkForUpdates()
                 } catch {
-                    dialog.showMessageBox(null, {
-                        message: 'Failed to check for updates',
+                    const popup = new Notification({
+                        body: 'Failed to check for updates',
                         title: 'Worksnake updater'
                     })
+
+                    popup.show()
                 }
             }
         },
