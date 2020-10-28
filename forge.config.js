@@ -24,5 +24,17 @@ module.exports = {
             name: "@electron-forge/maker-rpm",
             config: {}
         }
+    ],
+    publishers: [
+        {
+            name: '@electron-forge/publisher-github',
+            config: {
+                repository: {
+                    owner: '112batman',
+                    name: 'worksnake-releases'
+                },
+                prerelease: false
+            }
+        }
     ]
 }
