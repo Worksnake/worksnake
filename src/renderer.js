@@ -34,24 +34,32 @@ const createTray = () => {
             label: 'Check for updates',
             type: 'normal',
             click: () => {
-                const {autoUpdater, dialog} = require('electron').remote
+                const {autoUpdater, dialog, Notification} = require('electron').remote
 
                 try {
+                    var n = null;
+
                     autoUpdater.once('checking-for-update', () => {
-                        dialog.showMessageBox(null, {
-                            message: 'Checking for updates',
+                        n = new Notification({
+                            body: 'Checking for updates',
                             title: 'Worksnake updater'
                         })
                     })
                     autoUpdater.once('update-available', () => {
-                        dialog.showMessageBox(null, {
-                            message: 'A new update is available\nIt will be automaticly downloaded',
+
+                        if(n) n.close()
+
+                        new Notification({
+                            body: 'A new update is available\nIt will be automaticly downloaded',
                             title: 'Worksnake updater'
                         })
                     })
                     autoUpdater.once('update-not-available', () => {
-                        dialog.showMessageBox(null, {
-                            message: 'You already have the latest version',
+
+                        if(n) n.close()
+
+                        new Notification({
+                            body: 'You already have the latest version',
                             title: 'Worksnake updater'
                         })
                     })
