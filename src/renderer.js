@@ -64,6 +64,18 @@ const createTray = () => {
                     })
                 }
             }
+        },
+        {
+            label: 'About',
+            type: 'normal',
+            click: () => {
+                const window = new BrowserWindow({
+                    width: 800,
+                    height: 600
+                })
+
+                window.loadFile(path.join(__dirname, 'about.html'))
+            }
         }
     ])
 

@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Config</title>
 </head>
 <body>
     <table id="config">
         <tr>
-            <th>Interval</th>
-            <th>Time</th>
-            <th>Postpone</th>
+            <th>Interval (minutes)</th>
+            <th>Time (seconds)</th>
+            <th>Snooze (minutes)</th>
         </tr>
     </table>
     <script>
@@ -35,9 +35,9 @@
                 const cancel = Number(el.firstChild.nextSibling.nextSibling.innerText)
 
                 tasks.push({
-                    interval: interval === NaN ? null : interval,
+                    interval: interval === NaN ? null : interval * 60,
                     time: time === NaN ? null : time,
-                    cancel: cancel === NaN ? null : cancel
+                    cancel: cancel === NaN ? null : cancel * 60
                 })
             }
 
