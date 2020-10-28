@@ -49,8 +49,6 @@
     <script>
         const c = JSON.parse(cfg)
 
-        console.log(c)
-
         const el = document.getElementById('config')
 
         for(var i = 0; i < c.tasks.length; i++) {            
@@ -65,7 +63,7 @@
                 td.contentEditable = true
                 td.style = "border-style: solid; border-color: black; border-width: 5px;"
 
-                td.innerText = task.interval
+                td.innerText = task.interval / 60
 
                 row.appendChild(td)
 
@@ -93,7 +91,7 @@
                 td.contentEditable = true
                 td.style = "border-style: solid; border-color: black; border-width: 5px;"
 
-                td.innerText = task.cancel
+                td.innerText = task.cancel / 60
 
                 row.appendChild(td)
 
