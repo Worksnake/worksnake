@@ -33,7 +33,8 @@ module.exports = {
                     owner: '112batman',
                     name: 'worksnake-releases'
                 },
-                prerelease: false
+                prerelease: false,
+                draft: true
             }
         }
     ]
