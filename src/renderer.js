@@ -144,6 +144,13 @@ for(var i = 0; i < config.tasks.length; i++) {
             }
         })
 
-        window.loadURL(`data:text/html,<script>const id = ${window.id}; const interval = ${task.interval}; const time = ${task.time}; const cancel = ${task.cancel};</script>${fs.readFileSync(path.join(__dirname, 'popup.html'))}`)
+        var cancelable
+        if(task.cancelable === false) {
+            cancelable = false
+        }else {
+            cancelable = true
+        }
+
+        window.loadURL(`data:text/html,<script>const id = ${window.id}; const interval = ${task.interval}; const time = ${task.time}; const cancel = ${task.cancel}; const cancelable = ${cancelable};</script>${fs.readFileSync(path.join(__dirname, 'popup.html'))}`)
     }, task.interval * 1000)
 }
