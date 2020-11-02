@@ -131,26 +131,10 @@ fs.writeFileSync(path.join(app.getPath('userData'), 'config.json'), JSON.stringi
 for(var i = 0; i < config.tasks.length; i++) {
     const task = config.tasks[i]
 
-    setInterval(() => {
-        const window = new BrowserWindow({
-            alwaysOnTop: true,
-            center: true,
-            width: 200,
-            height: 100,
-            frame: false,
-            webPreferences: {
-                nodeIntegration: true,
-                enableRemoteModule: true
-            }
-        })
-
-        var cancelable
-        if(task.cancelable === false) {
-            cancelable = false
-        }else {
-            cancelable = true
-        }
-
-        window.loadURL(`data:text/html,<script>const id = ${window.id}; const interval = ${task.interval}; const time = ${task.time}; const cancel = ${task.cancel}; const cancelable = ${cancelable};</script>${fs.readFileSync(path.join(__dirname, 'popup.html'))}`)
-    }, task.interval * 1000)
+    require('electron').ipcRenderer.send('popup', {
+        interval: task.interval,
+        time: task.time,
+        cancel: task.cancel,
+        cancelable: task.cancelable
+    })
 }

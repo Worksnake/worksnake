@@ -34,6 +34,37 @@ ipcMain.on('relaunch', () => {
     app.quit()
 })
 
+const createPopup = data => {
+    const window = new BrowserWindow({
+        alwaysOnTop: true,
+        center: true,
+        width: 200,
+        height: 100,
+        frame: false,
+        webPreferences: {
+            nodeIntegration: true,
+            enableRemoteModule: true
+        }
+    })
+
+    var cancelable
+    if(data.cancelable === null || data.cancelable || undefined) {
+        cancelable = true
+    }else if(data.cancelable === false) {
+        cancelable = false
+    }else {
+        cancelable = true
+    }
+
+    window.loadURL(`data:text/html,<script>const id = ${window.id}; const interval = ${data.interval}; const time = ${data.time}; const cancel = ${data.cancel}; const cancelable = ${cancelable};</script>${require('fs').readFileSync(path.join(__dirname, 'popup.html'))}`)
+}
+
+ipcMain.on('popup', (e, data) => {
+    setTimeout(() => {
+        createPopup(data)
+    }, data.interval * 1000)
+})
+
 try {
     const server = 'https://hazel-worksnake.vercel.app'
     const feed = `${server}/update/${process.platform}/${app.getVersion()}`
