@@ -1,10 +1,10 @@
 const {app, BrowserWindow, ipcMain, autoUpdater, dialog} = require('electron')
 
-/*const AutoLaunch = require('auto-launch')
+//const AutoLaunch = require('auto-launch')
 
 const path = require('path')
 
-if(require('electron-squirrel-startup')) app.quit()
+/*if(require('electron-squirrel-startup')) app.quit()
 
 const autoLaunch = new AutoLaunch({
     name: 'Worksnake'
