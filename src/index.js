@@ -1,16 +1,16 @@
 const {app, BrowserWindow, ipcMain, autoUpdater, dialog} = require('electron')
 
-//const AutoLaunch = require('auto-launch')
+const AutoLaunch = require('auto-launch')
 
 const path = require('path')
 
-/*if(require('electron-squirrel-startup')) app.quit()
+if(require('electron-squirrel-startup')) app.quit()
 
 const autoLaunch = new AutoLaunch({
     name: 'Worksnake'
 })
 
-autoLaunch.enable()*/
+autoLaunch.enable()
 
 const createWindow = () => {
     const window = new BrowserWindow({
@@ -42,7 +42,7 @@ ipcMain.on('relaunch', () => {
     app.quit()
 })
 
-/*ipcMain.on('autolaunch.set', async (e, state) => {
+ipcMain.on('autolaunch.set', async (e, state) => {
     if(state === true) {
         await autoLaunch.enable()
     }else if(state === false) {
@@ -54,7 +54,7 @@ ipcMain.on('relaunch', () => {
 
 ipcMain.on('autolaunch.get', async (e) => {
     e.reply('autolaunch.get', await autoLaunch.isEnabled())
-})*/
+})
 
 const createPopup = data => {
     const window = new BrowserWindow({

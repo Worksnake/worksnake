@@ -4,7 +4,7 @@ const path = require('path')
 const fs = require('fs')
 
 var tray;
-const createTray = () => {
+const createTray = async () => {
     tray = new Tray(nativeImage.createFromPath(path.join(__dirname, 'assets', 'logo.jpg')))
     const menu = Menu.buildFromTemplate([
         {
@@ -94,6 +94,26 @@ const createTray = () => {
 
                 window.loadFile(path.join(__dirname, 'about.html'))
             }
+        },
+        {
+            label: 'Start with computer',
+            type: 'checkbox',
+            click: async (item) => {
+                require('electron').ipcRenderer.once('autolaunch.set', (e, reply) => {
+                    item.checked = reply
+                })
+
+                require('electron').ipcRenderer.send('autolaunch.set', item.checked)
+            },
+            checked: await (() => {
+                return new Promise(resolve => {
+                    require('electron').ipcRenderer.once('autolaunch.get', (e, reply) => {
+                        resolve(reply)
+                    })
+
+                    require('electron').ipcRenderer.send('autolaunch.get')
+                })
+            })()
         }
     ])
 
