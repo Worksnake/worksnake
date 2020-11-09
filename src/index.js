@@ -6,6 +6,8 @@ const path = require('path')
 
 if(require('electron-squirrel-startup')) app.quit()
 
+//if(!app.requestSingleInstanceLock) app.quit()
+
 const autoLaunch = new AutoLaunch({
     name: 'Worksnake'
 })

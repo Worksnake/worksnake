@@ -89,7 +89,11 @@ const createTray = async () => {
             click: () => {
                 const window = new BrowserWindow({
                     width: 800,
-                    height: 600
+                    height: 600,
+                    webPreferences: {
+                        nodeIntegration: true,
+                        enableRemoteModule: true
+                    }
                 })
 
                 window.loadFile(path.join(__dirname, 'about.html'))

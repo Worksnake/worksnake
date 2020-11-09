@@ -6,6 +6,9 @@
     <title>About</title>
 </head>
 <body>
-    Coming soon™
+    <p id="version"></p>
+    <script>
+        document.getElementById('version').innerHTML = 'Version: ' + require('electron').remote.app.getVersion()
+    </script>
 </body>
 </html>
