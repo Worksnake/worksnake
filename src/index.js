@@ -12,7 +12,9 @@ const autoLaunch = new AutoLaunch({
     name: 'Worksnake'
 })
 
-autoLaunch.enable()
+const fs = require('fs')
+
+if(!fs.existsSync(path.join(app.getPath('userData'), 'autoLaunch'))) autoLaunch.enable()
 
 const createWindow = () => {
     const window = new BrowserWindow({
