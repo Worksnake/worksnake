@@ -19,7 +19,7 @@
             <th>Interval (minutes)</th>
             <th>Time (seconds)</th>
             <th>Snooze (minutes)</th>
-            <th>Cancelable (boolean)</th>
+            <th>Cancelable</th>
         </tr>
     </table>
     <script>
@@ -42,15 +42,7 @@
                 const interval = Number(el.firstChild.innerText)
                 const time = Number(el.firstChild.nextSibling.innerText)
                 const cancel = Number(el.firstChild.nextSibling.nextSibling.innerText)
-
-                var cancelable = el.firstChild.nextSibling.nextSibling.nextSibling.innerText
-                if(cancelable === 'true') {
-                    cancelable = true
-                }else if(cancelable === 'false') {
-                    cancelable = false
-                }else {
-                    cancelable = null
-                }
+                const cancelable = el.firstChild.nextSibling.nextSibling.nextSibling.checked
 
                 tasks.push({
                     interval: interval === NaN ? null : interval * 60,
@@ -121,14 +113,17 @@
 
             {
                 const td = document.createElement('td')
-                td.contentEditable = true
-                td.style = "border-style: solid; border-color: black; border-width: 5px;"
 
-                td.innerText = task.cancelable === true ? 'true' : 'false'
+                const check = document.createElement('input')
+                check.type = 'checkbox'
+
+                check.checked = task.cancelable
+
+                td.appendChild(check)
 
                 row.appendChild(td)
 
-                td.addEventListener('input', () => {
+                check.addEventListener('input', () => {
                     processConfig()
                 })
             }
@@ -147,13 +142,27 @@
 
             for(var i = 0; i < 4; i++) {
                 const td = document.createElement('td')
-                td.contentEditable = true
-                td.style = "border-style: solid; border-color: black; border-width: 5px;"
-                row.appendChild(td)
+                
+                if(i !== 3) {
+                    td.contentEditable = true
+                    td.style = "border-style: solid; border-color: black; border-width: 5px;"
+                    row.appendChild(td)
 
-                td.addEventListener('input', () => {
-                    processConfig()
-                })
+                    td.addEventListener('input', () => {
+                        processConfig()
+                    })
+                }else {
+                    const check = document.createElement('input')
+                    check.type = 'checkbox'
+
+                    td.appendChild(check)
+
+                    row.appendChild(td)
+
+                    check.addEventListener('input', () => {
+                        processConfig()
+                    })
+                }
             }
 
             el.appendChild(row)
