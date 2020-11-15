@@ -45,20 +45,26 @@
             el.innerHTML = `${interval / 60}/${time} break!`
         }
     </script>
-    <p id="timeLeft"></p>
+    <div style="width: 80vw; border-color: black; border-width: 3px; border-style: solid; height: 25px; margin-left: auto; margin-right: auto;">
+        <div id="timeLeft" style="height: 25px; width: 0%; background-color: rgb(43, 170, 43); text-align: center;"></div>
+        <div id="timeLeftText" style="text-align: center; position: relative; line-height: 25px; bottom: 25px;"></div>
+    </div>
     <script>
         function start() {
 
             cancelled = false
 
             const el = document.getElementById('timeLeft')
+            const el2 = document.getElementById('timeLeftText')
 
             var t = time - 1
 
-            el.innerHTML = `${t + 1} seconds left`
+            el2.innerHTML = `${t + 1} seconds left`
+            el.style.width = `${100 - Math.floor(100 / time * t)}%`
 
             const task = setInterval(() => {
-                el.innerHTML = `${t} seconds left`
+                el2.innerHTML = `${t} seconds left`
+                el.style.width = `${100 - Math.floor(100 / time * t)}%`
 
                 if(cancelled) {
                     el.innerHTML = `Cancelled`
@@ -87,7 +93,8 @@
 
                 if(cursorScreenPoint.x !== prev.x || cursorScreenPoint.y !== prev.y) {
                     t = time
-                    el.innerHTML = `${t} seconds left`
+                    el2.innerHTML = `${t} seconds left`
+                    el.style.width = `${100 - Math.floor(100 / time * t)}%`
                 }
 
                 prev = cursorScreenPoint
