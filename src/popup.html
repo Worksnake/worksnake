@@ -67,8 +67,6 @@
                 el.style.width = `${100 - Math.floor(100 / time * t)}%`
 
                 if(cancelled) {
-                    el.innerHTML = `Cancelled`
-                    
                     clearInterval(task)
                     clearInterval(task2)
                 }
