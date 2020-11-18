@@ -14,7 +14,10 @@ const autoLaunch = new AutoLaunch({
 
 const fs = require('fs')
 
-if(!fs.existsSync(path.join(app.getPath('userData'), 'autoLaunch'))) autoLaunch.enable()
+if(!fs.existsSync(path.join(app.getPath('userData'), 'autoLaunch'))) {
+    fs.writeFileSync(path.join(app.getPath('userData'), 'autoLaunch'), '')
+    autoLaunch.enable()
+}
 
 const createWindow = () => {
     const window = new BrowserWindow({
