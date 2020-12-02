@@ -1,0 +1,1 @@
+console.log(require('node-abi').getAbi('10.1.5', 'electron'))
