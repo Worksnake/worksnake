@@ -37,7 +37,7 @@
         }
     </script>
 </head>
-<body style="overflow: hidden; cursor: none;">
+<body style="overflow: hidden;">
     <p><b id="text"></b></p>
     <script>
         {
@@ -96,14 +96,6 @@
                 }
 
                 prev = cursorScreenPoint
-
-                {
-                    const robotjs = require('robotjs')
-
-                    const size = robotjs.getScreenSize()
-
-                    robotjs.moveMouse(size.width / 2, size.height / 2)
-                }
             }, 100)
         }
     </script>
