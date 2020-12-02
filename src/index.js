@@ -32,6 +32,8 @@ const createWindow = () => {
     })
 
     window.loadFile(path.join(__dirname, 'index.html'))
+
+    window.webContents.openDevTools()
 }
 
 app.whenReady().then(createWindow)
@@ -75,8 +77,6 @@ const createPopup = data => {
             enableRemoteModule: true
         }
     })
-
-    window.webContents.openDevTools()
 
     var cancelable
     if(data.cancelable === null || data.cancelable || undefined) {
