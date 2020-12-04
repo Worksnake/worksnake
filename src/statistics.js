@@ -3,6 +3,8 @@ const {app} = require('electron').remote
 const path = require('path')
 const Chart = require('chart.js')
 
+if(!fs.existsSync(path.join(app.getPath('userData'), 'statistics'))) fs.writeFileSync(path.join(app.getPath('userData'), 'statistics'), '')
+
 const stats = fs.readFileSync(path.join(app.getPath('userData'), 'statistics'), {
     encoding: 'utf-8'
 })
