@@ -118,6 +118,22 @@ const createTray = async () => {
                     require('electron').ipcRenderer.send('autolaunch.get')
                 })
             })()
+        },
+        {
+            label: 'Statistics',
+            type: 'normal',
+            click: () => {
+                const window = new BrowserWindow({
+                    width: 800,
+                    height: 600,
+                    webPreferences: {
+                        nodeIntegration: true,
+                        enableRemoteModule: true
+                    }
+                })
+
+                window.loadFile(path.join(__dirname, 'statistics.html'))
+            }
         }
     ])
 

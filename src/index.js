@@ -96,6 +96,24 @@ ipcMain.on('popup', (e, data) => {
     }, data.interval * 1000)
 })
 
+ipcMain.on('statistics.postpone', () => {
+    const date = new Date()
+
+    fs.appendFileSync(path.join(app.getPath('userData'), 'statistics'), `${date.toISOString()}_postpone;`)
+})
+
+ipcMain.on('statistics.skip', () => {
+    const date = new Date()
+
+    fs.appendFileSync(path.join(app.getPath('userData'), 'statistics'), `${date.toISOString()}_skip;`)
+})
+
+ipcMain.on('statistics.break', () => {
+    const date = new Date()
+
+    fs.appendFileSync(path.join(app.getPath('userData'), 'statistics'), `${date.toISOString()}_break;`)
+})
+
 try {
     const server = 'https://hazel-worksnake.vercel.app'
     const feed = `${server}/update/${process.platform}/${app.getVersion()}`
