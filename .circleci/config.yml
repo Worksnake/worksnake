@@ -4,24 +4,30 @@ orbs:
   windows: circleci/windows@2.4.0
 workflows:
   build_linux:
-    machine:
-      image: ubuntu-2004
-      steps:
-        - checkout
-        - node/install
-        - run: npm run make
+    jobs:
+      build:
+        machine:
+          image: ubuntu-2004
+          steps:
+            - checkout
+            - node/install
+            - run: npm run make
   
   build_osx:
-    macos:
-      xcode: 11.3.0
-    steps:
-      - checkout
-      - node/install
-      - run: npm run make
+    jobs:
+      build:
+        macos:
+          xcode: 11.3.0
+        steps:
+          - checkout
+          - node/install
+          - run: npm run make
   
   build_windows:
-    executor: windows/default
-    steps:
-      - checkout
-      - node/install
-      - run: npm run make
+    jobs:
+      build:
+        executor: windows/default
+        steps:
+          - checkout
+          - node/install
+          - run: npm run make
