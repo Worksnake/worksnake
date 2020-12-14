@@ -35,7 +35,8 @@ module.exports = {
                 },
                 prerelease: false,
                 draft: true,
-                authToken: 'd74ce296dd884dca10b427c9bd03df73be0b66a8'
+                authToken: require('./env/githubToken') //Unpublished, contains my github access token
+                //Yes, the token that was here before open source is no longer valid, I regenerated it
             }
         }
     ]
