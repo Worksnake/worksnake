@@ -2,32 +2,34 @@ version: 2.1
 orbs:
   node: circleci/node@4.1.0
   windows: circleci/windows@2.4.0
-workflows:
+
+jobs:
   build_linux:
-    jobs:
-      build:
-        machine:
-          image: ubuntu-2004
-          steps:
-            - checkout
-            - node/install
-            - run: npm run make
-  
+    machine:
+      image: ubuntu-2004
+      steps:
+        - checkout
+        - node/install
+        - run: npm run make
+
   build_osx:
-    jobs:
-      build:
-        macos:
-          xcode: 11.3.0
-        steps:
-          - checkout
-          - node/install
-          - run: npm run make
-  
+    macos:
+      xcode: 11.3.0
+    steps:
+      - checkout
+      - node/install
+      - run: npm run make
+
   build_windows:
+    executor: windows/default
+    steps:
+      - checkout
+      - node/install
+      - run: npm run make
+
+workflows:
+  build:
     jobs:
-      build:
-        executor: windows/default
-        steps:
-          - checkout
-          - node/install
-          - run: npm run make
+      - build_linux
+      - build_osx
+      - build_windows      
