@@ -7,10 +7,10 @@ jobs:
   build_linux:
     machine:
       image: ubuntu-2004
-      steps:
-        - checkout
-        - node/install
-        - run: npm run make
+    steps:
+      - checkout
+      - node/install
+      - run: npm run make
 
   build_osx:
     macos:
