@@ -24,7 +24,7 @@ for:
         - ps: Install-Product node 14 x86
         - npm ci
     build_script:
-      - npx electron-forge make --arch x86
+      - npx electron-forge make --arch ia32
   -
     matrix:
       only:
