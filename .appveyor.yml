@@ -23,7 +23,7 @@ for:
       only:
         - image: Visual Studio 2019
     install:
-        - Install-Product node 8 x64
+        - ps: Install-Product node 8 x64
         - npm ci
 
 test: false
