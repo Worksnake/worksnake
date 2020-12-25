@@ -39,7 +39,7 @@ for:
 test: false
 
 artifacts:
-  - path: out/*/**
+  - path: out/make/*/**
     name: Worksnake-$env:PLATFORM
 
 deploy:
@@ -49,6 +49,6 @@ deploy:
   provider: Github
   auth_token:
     secure: 5tEqSzM/9afOkovJUSyOrOGkIjjwZcbvt6di82NYWOaCiX/pJNm0u+OjMaT7yh9v
-  artifact: out/*/**
+  artifact: out/make/*/**
   draft: true
   prerelease: false
