@@ -22,8 +22,17 @@ for:
     matrix:
       only:
         - image: Visual Studio 2019
+        - platform: x86
     install:
-        - ps: Install-Product node 8 x64
+        - ps: Install-Product node 14 x86
+        - npm ci
+  -
+    matrix:
+      only:
+        - image: Visual Studio 2019
+        - platform: x64
+    install:
+        - ps: Install-Product node 14 x64
         - npm ci
 
 test: false
