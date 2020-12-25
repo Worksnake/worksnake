@@ -25,6 +25,7 @@ for:
         - npm ci
     build_script:
       - npm run make
+      - ls out
   -
     matrix:
       only:
