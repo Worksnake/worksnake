@@ -38,6 +38,10 @@ for:
 
 test: false
 
+artifacts:
+  - path: out/*/**
+    name: Worksnake-$env:PLATFORM
+
 deploy:
   release: RENAME
   description: FillIn
