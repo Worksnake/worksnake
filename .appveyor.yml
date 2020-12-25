@@ -14,15 +14,18 @@ cache:
 init:
   - git config --global core.autocrlf input
 
-matrix:
-  only:
-    - image: Visual Studio 2019
-  install:
-    - npm ci
-
-  build_script:
-    - npm run make
+build_script:
+  - npm run make
   
+for:
+  -
+    matrix:
+      only:
+        - image: Visual Studio 2019
+    install:
+        - Install-Product node 8 x64
+        - npm ci
+
 test: false
 
 deploy:
