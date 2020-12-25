@@ -1,0 +1,36 @@
+skip_tags: false
+skip_non_tags: true
+
+image:
+  - Visual Studio 2019
+
+platform:
+  - x86
+  - x64
+
+cache:
+  - node_modules
+
+init:
+  - git config --global core.autocrlf input
+
+matrix:
+  only:
+    - image: Visual Studio 2019
+  install:
+    - npm ci
+
+  build_script:
+    - npm run make
+  
+test: false
+
+deploy:
+  release: RENAME
+  description: FillIn
+  provider: Github
+  auth_token:
+    secure: sQO80tawQx56JPrfCRfAwdoFMTjBC5nbtUnGGs6/Lwq3JHdJpLu1ekACoZGLf0deWPr66FJBqespYyucHhPgDCyAFmYKrrIOaZ4PXqtdoW6im6+QJZKF2y8aTYGHU8We2AwqoPPF7s9CMfqgEyMFQG7fc4reBTh8QJn15Nv+AUaWgQrMAMrtwy7X8MQngNk6dkSahrale5G+AU16UgvvYcb6+GhzhJ3uiq2P5h7t2rPSrFLRiIVuQoS2+ItN4SvbK+f/4JLiS/rvpUcTVY1F3zBBOBO+Ta2nE5fSQry+bEi8yAOkNC4HObMVdpyraRIucokQGaWtMf05R74cgia2+iY8Rbb3q6QadO8uUdOwXAbCKyxeBsKyBluCf4GpxKBsDhuTQWaaNSw4HderyaXnsia11T7a9SDDhP62uzHw+ElyqVxo2wHKfbkVPDI4Y3G//qQZN8dgUfSVsvgNJIhV3h0kRN+UbeRGbDCLOd6NZ46tOzEHcf0qDVEXZimadvQ5fuhfQU/rpHHYi3ODVxs9cQ==
+  artifact: out/*/**
+  draft: true
+  prerelease: false
