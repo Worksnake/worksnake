@@ -19,22 +19,22 @@ for:
     matrix:
       only:
         - image: Visual Studio 2019
-        - platform: x86
+          platform: x86
     install:
         - ps: Install-Product node 14 x86
         - npm ci
     build_script:
-      - npx electron-forge make --arch ia32
+      - npm run make
   -
     matrix:
       only:
         - image: Visual Studio 2019
-        - platform: x64
+          platform: x64
     install:
         - ps: Install-Product node 14 x64
         - npm ci
     build_script:
-      - npx electron-forge make --arch x64
+      - npm run make
 
 test: false
 
