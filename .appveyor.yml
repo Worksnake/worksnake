@@ -25,7 +25,6 @@ for:
         - npm ci
     build_script:
       - npm run make
-      - ls ./out/make/squirrel.windows
   -
     matrix:
       only:
@@ -40,16 +39,17 @@ for:
 test: false
 
 artifacts:
-  - path: out/make/*/**
+  - path: out/make/**/*
     name: Worksnake-$env:PLATFORM
 
-deploy:
-  repository: Worksnake/worksnake-releases
-  release: RENAME
-  description: FillIn
-  provider: Github
-  auth_token:
-    secure: 5tEqSzM/9afOkovJUSyOrOGkIjjwZcbvt6di82NYWOaCiX/pJNm0u+OjMaT7yh9v
-  artifact: out/make/*/**
-  draft: true
-  prerelease: false
+#Disabled until I manage to fix this
+#deploy:
+#  repository: Worksnake/worksnake-releases
+#  release: RENAME
+#  description: FillIn
+#  provider: Github
+#  auth_token:
+#    secure: 5tEqSzM/9afOkovJUSyOrOGkIjjwZcbvt6di82NYWOaCiX/pJNm0u+OjMaT7yh9v
+#  artifact: out/make/*/**
+#  draft: true
+#  prerelease: false
