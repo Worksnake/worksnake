@@ -1,3 +1,10 @@
+const fs = require('fs')
+
+var githubAuthToken = ''
+if(fs.existsSync('./env/githubToken.js')) {
+    githubAuthToken = require('./env/githubToken')
+}
+
 module.exports = {
     packagerConfig: {
         asar: true,
@@ -35,7 +42,7 @@ module.exports = {
                 },
                 prerelease: false,
                 draft: true,
-                authToken: require('./env/githubToken') //Unpublished, contains my github access token
+                authToken: githubAuthToken //Unpublished, contains my github access token
                 //Yes, the token that was here before open source is no longer valid, I regenerated it
             }
         }
