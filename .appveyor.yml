@@ -38,33 +38,33 @@ for:
       only:
         - image: Ubuntu
           platform: x86
-      install:
-        - nvm install 14
-        - npm ci
+    install:
+      - nvm install 14
+      - npm ci
   -
     matrix:
       only:
         - image: Ubuntu
           platform: x64
-      install:
-        - nvm install 14
-        - npm ci
+    install:
+      - nvm install 14
+      - npm ci
   -
     matrix:
       only:
         - image: macos
           platform: x86
-      install:
-        - nvm install 14
-        - npm ci
+    install:
+      - nvm install 14
+      - npm ci
   -
     matrix:
       only:
         - image: macos
           platform: x64
-      install:
-        - nvm install 14
-        - npm ci
+    install:
+      - nvm install 14
+      - npm ci
 
 build_script:
   - npm run make
