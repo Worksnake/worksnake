@@ -46,7 +46,7 @@ for:
     install:
       - nvm install 14
       - npm ci
-      - apt-get install dpkg fakeroot -y
+      - sudo apt-get install dpkg fakeroot -y
     build_script:
       - npm run make:32
   -
@@ -57,7 +57,7 @@ for:
     install:
       - nvm install 14
       - npm ci
-      - apt-get install dpkg fakeroot -y
+      - sudo apt-get install dpkg fakeroot -y
     build_script:
       - npm run make
   -
