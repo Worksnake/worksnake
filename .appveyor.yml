@@ -41,6 +41,7 @@ for:
     install:
       - nvm install 14
       - npm ci
+      - apt-get install dpkg fakeroot -y
   -
     matrix:
       only:
@@ -49,6 +50,7 @@ for:
     install:
       - nvm install 14
       - npm ci
+      - apt-get install dpkg fakeroot -y
   -
     matrix:
       only:
