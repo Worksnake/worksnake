@@ -3,6 +3,8 @@ skip_non_tags: true
 
 image:
   - Visual Studio 2019
+  - Ubuntu
+  - macos
 
 platform:
   - x86
@@ -35,6 +37,46 @@ for:
         - npm ci
     build_script:
       - npm run make
+  -
+    matrix:
+      only:
+        - image: Ubuntu
+          platform: x86
+      install:
+        - nvm install 14
+        - npm ci
+      build_script:
+        - npm run make
+  -
+    matrix:
+      only:
+        - image: Ubuntu
+          platform: x64
+      install:
+        - nvm install 14
+        - npm ci
+      build_script:
+        - npm run make
+  -
+    matrix:
+      only:
+        - image: macos
+          platform: x86
+      install:
+        - nvm install 14
+        - npm ci
+      build_script:
+        - npm run make
+  -
+    matrix:
+      only:
+        - image: macos
+          platform: x64
+      install:
+        - nvm install 14
+        - npm ci
+      build_script:
+        - npm run make
 
 test: false
 
@@ -50,6 +92,6 @@ artifacts:
 #  provider: Github
 #  auth_token:
 #    secure: 5tEqSzM/9afOkovJUSyOrOGkIjjwZcbvt6di82NYWOaCiX/pJNm0u+OjMaT7yh9v
-#  artifact: out/make/*/**
+#  artifact: out/make/**/*
 #  draft: true
 #  prerelease: false
