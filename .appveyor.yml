@@ -10,8 +10,9 @@ platform:
   - x86
   - x64
 
-cache:
-  - node_modules
+#NPM Doesn't seem to like caching, requires investigation
+#cache:
+#  - node_modules
 
 init:
   - git config --global core.autocrlf input
