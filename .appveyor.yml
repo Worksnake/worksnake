@@ -60,16 +60,17 @@ for:
       - sudo apt-get install dpkg fakeroot rpmbuild -y
     build_script:
       - npm run make
-  -
-    matrix:
-      only:
-        - image: macOS
-          platform: x86
-    install:
-      - nvm install 14
-      - npm ci
-    build_script:
-      - npm run make:32
+#Disabled since electron-packager doesn't (yet) support darwin/ia32
+#  -
+#    matrix:
+#      only:
+#        - image: macOS
+#          platform: x86
+#    install:
+#      - nvm install 14
+#      - npm ci
+#    build_script:
+#      - npm run make:32
   -
     matrix:
       only:
