@@ -4,7 +4,7 @@ skip_non_tags: true
 image:
   - Visual Studio 2019
   - Ubuntu
-  - macos
+  - macOS
 
 platform:
   - x86
@@ -52,7 +52,7 @@ for:
   -
     matrix:
       only:
-        - image: macos
+        - image: macOS
           platform: x86
     install:
       - nvm install 14
@@ -60,7 +60,7 @@ for:
   -
     matrix:
       only:
-        - image: macos
+        - image: macOS
           platform: x64
     install:
       - nvm install 14
