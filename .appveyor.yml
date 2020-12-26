@@ -73,7 +73,6 @@ test: false
 
 artifacts:
   - path: out/make/**/*
-    name: Worksnake-$env:PLATFORM
 
 #Disabled until I manage to fix this
 #deploy:
