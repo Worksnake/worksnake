@@ -8,6 +8,7 @@
     "start": "electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make",
+    "make:32": "electron-forge make --arch=ia32",
     "publish": "electron-forge publish",
     "rebuild": "npm rebuild --runtime=electron --target=10.1.5 --disturl=https://atom.io/download/atom-shell --abi=82"
   },

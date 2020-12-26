@@ -24,8 +24,10 @@ for:
         - image: Visual Studio 2019
           platform: x86
     install:
-        - ps: Install-Product node 14 x86
+        - ps: Install-Product node 14 x64
         - npm ci
+    build_script:
+      - npm run make:32
   -
     matrix:
       only:
@@ -34,47 +36,50 @@ for:
     install:
         - ps: Install-Product node 14 x64
         - npm ci
+    build_script:
+      - npm run make
   -
     matrix:
       only:
         - image: Ubuntu
           platform: x86
     install:
-      - nvm arch 32
       - nvm install 14
       - npm ci
       - apt-get install dpkg fakeroot -y
+    build_script:
+      - npm run make:32
   -
     matrix:
       only:
         - image: Ubuntu
           platform: x64
     install:
-      - nvm arch 64
       - nvm install 14
       - npm ci
       - apt-get install dpkg fakeroot -y
+    build_script:
+      - npm run make
   -
     matrix:
       only:
         - image: macOS
           platform: x86
     install:
-      - nvm arch 32
       - nvm install 14
       - npm ci
+    build_script:
+      - npm run make:32
   -
     matrix:
       only:
         - image: macOS
           platform: x64
     install:
-      - nvm arch 64
       - nvm install 14
       - npm ci
-
-build_script:
-  - npm run make
+    build_script:
+      - npm run make
 
 test: false
 
