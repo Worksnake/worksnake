@@ -61,11 +61,11 @@ for:
     build_script:
       - npm run make
 #Disabled since electron-packager doesn't (yet) support darwin/ia32
-#  -
-#    matrix:
-#      only:
-#        - image: macOS
-#          platform: x86
+  -
+    matrix:
+      only:
+        - image: macOS
+          platform: x86
 #    install:
 #      - nvm install 14
 #      - npm ci
