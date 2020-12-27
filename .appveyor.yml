@@ -89,8 +89,8 @@ artifacts:
 
 deploy:
   repository: Worksnake/worksnake-releases
-  tag: Version
-  description: 'Describe changes'
+  tag: Version_$(image)-$(platform)
+  description: $(image)-$(platform)
   provider: GitHub
   auth_token:
     secure: tCr7eKazElu1h4Hu0NoAsvW8Aux4cxkMkSpmGuVu4MpFCifawz74aSuFkOxjtSU4
