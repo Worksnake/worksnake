@@ -88,6 +88,7 @@ artifacts:
   - path: out/make/**/*
 
 deploy:
+  repository: Worksnake/worksnake-releases
   tag: Version
   description: 'Describe changes'
   provider: GitHub
