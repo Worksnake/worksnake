@@ -87,14 +87,11 @@ test: false
 artifacts:
   - path: out/make/**/*
 
-#Disabled until I manage to fix this
-#deploy:
-#  repository: Worksnake/worksnake-releases
-#  release: RENAME
-#  description: FillIn
-#  provider: Github
-#  auth_token:
-#    secure: 5tEqSzM/9afOkovJUSyOrOGkIjjwZcbvt6di82NYWOaCiX/pJNm0u+OjMaT7yh9v
-#  artifact: out/make/**/*
-#  draft: true
-#  prerelease: false
+deploy:
+  tag: Version
+  description: 'Describe changes'
+  provider: GitHub
+  auth_token:
+    secure: tCr7eKazElu1h4Hu0NoAsvW8Aux4cxkMkSpmGuVu4MpFCifawz74aSuFkOxjtSU4
+  draft: true
+  prerelease: false
