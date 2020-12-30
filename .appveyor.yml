@@ -30,8 +30,8 @@ for:
     build_script:
       - npm run make:32
     after_build:
-      - ps: move "out/make/squirrel.windows/ia32/worksnake-$env:package_version Setup.exe" "out/make/squirrel.windows/ia32/worksnake_$env:package_version_ia32_setup.exe"
-      - ps: move "out/make/squirrel.windows/ia32/worksnake-$env:package_version-full.nupkg" "out/make/squirrel.windows/ia32/worksnake_$env:package_version_ia32.nupkg"
+      - ps: move (-join("out/make/squirrel.windows/ia32/worksnake-", "$env:package_version", " Setup.exe")) (-join("out/make/squirrel.windows/ia32/worksnake_", "$env:package_version", "_ia32_setup.exe"))
+      - ps: move (-join("out/make/squirrel.windows/ia32/worksnake-", "$env:package_version", "-full.nupkg")) (-join("out/make/squirrel.windows/ia32/worksnake_", "$env:package_version", "_ia32.nupkg"))
   -
     matrix:
       only:
@@ -44,8 +44,8 @@ for:
     build_script:
       - npm run make
     after_build:
-      - ps: move "out/make/squirrel.windows/x64/worksnake-$env:package_version Setup.exe" "out/make/squirrel.windows/x64/worksnake_$env:package_version_x64_setup.exe"
-      - ps: move "out/make/squirrel.windows/x64/worksnake-$env:package_version-full.nupkg" "out/make/squirrel.windows/x64/worksnake_$env:package_version_x64.nupkg"
+      - ps: move (-join("out/make/squirrel.windows/x64/worksnake-", "$env:package_version", " Setup.exe")) (-join("out/make/squirrel.windows/x64/worksnake_", "$env:package_version", "_x64_setup.exe"))
+      - ps: move (-join("out/make/squirrel.windows/x64/worksnake-", "$env:package_version", "-full.nupkg")) (-join("out/make/squirrel.windows/x64/worksnake_", "$env:package_version", "_x64.nupkg"))
   -
     matrix:
       only:
