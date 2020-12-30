@@ -5,9 +5,13 @@ const Chart = require('chart.js')
 
 if(!fs.existsSync(path.join(app.getPath('userData'), 'statistics'))) fs.writeFileSync(path.join(app.getPath('userData'), 'statistics'), '')
 
-const stats = fs.readFileSync(path.join(app.getPath('userData'), 'statistics'), {
+const stats = fs.existsSync(path.join(app.getPath('userData'), 'statistics')) ? '' : fs.readFileSync(path.join(app.getPath('userData'), 'statistics'), {
     encoding: 'utf-8'
 })
+
+if(stats === '') {
+    document.getElementById('no_data').classList.toggle('hidden')
+}
 
 const ctx = document.getElementById('canvas').getContext('2d')
 const chart = new Chart(ctx, {
