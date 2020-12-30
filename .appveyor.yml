@@ -24,20 +24,28 @@ for:
         - image: Visual Studio 2019
           platform: x86
     install:
+        - ps: $env:package_version=(Get-Content -Raw -Path package.json | ConvertFrom-Json).version
         - ps: Install-Product node 14 x64
         - npm ci
     build_script:
       - npm run make:32
+    after_build:
+      - ps: move "out/make/squirrel.windows/ia32/worksnake-$env:package_version Setup.exe" "out/make/squirrel.windows/ia32/worksnake_$env:package_version_ia32_setup.exe"
+      - ps: move "out/make/squirrel.windows/ia32/worksnake-$env:package_version-full.nupkg" "out/make/squirrel.windows/ia32/worksnake_$env:package_version_ia32.nupkg"
   -
     matrix:
       only:
         - image: Visual Studio 2019
           platform: x64
     install:
+        - ps: $env:package_version=(Get-Content -Raw -Path package.json | ConvertFrom-Json).version
         - ps: Install-Product node 14 x64
         - npm ci
     build_script:
       - npm run make
+    after_build:
+      - ps: move "out/make/squirrel.windows/x64/worksnake-$env:package_version Setup.exe" "out/make/squirrel.windows/x64/worksnake_$env:package_version_x64_setup.exe"
+      - ps: move "out/make/squirrel.windows/x64/worksnake-$env:package_version-full.nupkg" "out/make/squirrel.windows/x64/worksnake_$env:package_version_x64.nupkg"
   -
     matrix:
       only:
