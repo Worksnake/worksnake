@@ -97,8 +97,15 @@ artifacts:
 
 deploy:
   repository: Worksnake/worksnake-releases
-  tag: Version_$(image)-$(platform)
-  description: $(image)-$(platform)
+  tag: >-
+    vX.X.X
+    _
+    $(image)
+    _
+    $(platform)
+  description: |-
+    Platform: $(image)
+    Arch: $(platform)
   provider: GitHub
   auth_token:
     secure: tCr7eKazElu1h4Hu0NoAsvW8Aux4cxkMkSpmGuVu4MpFCifawz74aSuFkOxjtSU4
