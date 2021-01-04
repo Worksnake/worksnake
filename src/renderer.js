@@ -5,7 +5,7 @@ const fs = require('fs')
 
 var tray;
 const createTray = async () => {
-    tray = new Tray(nativeImage.createFromPath(path.join(__dirname, 'assets', 'logo.jpg')))
+    tray = new Tray(nativeImage.createFromPath(path.join(__dirname, 'assets', 'logo.png')))
     const menu = Menu.buildFromTemplate([
         {
             label: 'Quit',
