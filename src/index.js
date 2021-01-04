@@ -115,23 +115,41 @@ ipcMain.on('statistics.break', () => {
     fs.appendFileSync(path.join(app.getPath('userData'), 'statistics'), `${date.toISOString()}_break;`)
 })
 
-autoUpdater.checkForUpdates().catch()
-setTimeout(() => {
+if(!require('electron-is-dev')) {
     autoUpdater.checkForUpdates().catch()
-}, 15 * 60 * 1000)
+    setTimeout(() => {
+        autoUpdater.checkForUpdates().catch()
+    }, 15 * 60 * 1000)
 
-autoUpdater.on('update-downloaded', async () => {
-    const response = await dialog.showMessageBox(null, {
-        message: 'A new update is available and will be installed next restart\nRestart now?',
-        title: 'Update available',
-        type: 'info',
-        buttons: [
-            'Restart and install now',
-            'I\'ll restart later'
-        ]
+    autoUpdater.on('update-downloaded', async () => {
+        const response = await dialog.showMessageBox(null, {
+            message: 'A new update is available and will be installed next restart\nRestart now?',
+            title: 'Update available',
+            type: 'info',
+            buttons: [
+                'Restart and install now',
+                'I\'ll restart later'
+            ]
+        })
+
+        if(response.response === 0) {
+            autoUpdater.quitAndInstall()
+        }
     })
 
-    if(response.response === 0) {
-        autoUpdater.quitAndInstall()
-    }
-})
+    ipcMain.on('autoupdate.check', async e => {
+        autoUpdater.once('update-available', () => {
+            e.reply('autoupdate.check.status', 1)
+        })
+
+        autoUpdater.once('update-not-available', () => {
+            e.reply('autoupdate.check.status', 0)
+        })
+
+        autoUpdater.checkForUpdates().catch(() => {
+            autoUpdater.once('update-not-available', () => {
+                e.reply('autoupdate.check.status', -1)
+            })
+        })
+    })
+}

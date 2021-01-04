@@ -1,11 +1,12 @@
-const {Tray, Menu, app, BrowserWindow} = require('electron').remote
+const {Tray, Menu, app, BrowserWindow, nativeImage, Notification} = require('electron').remote
+const {ipcRenderer} = require('electron')
 
 const path = require('path')
 const fs = require('fs')
 
 var tray;
 const createTray = async () => {
-    tray = new Tray(path.join(__dirname, 'assets', 'icon.png'))
+    tray = new Tray(nativeImage.createFromPath(path.join(__dirname, 'assets', 'icon.png')))
     const menu = Menu.buildFromTemplate([
         {
             label: 'Quit',
@@ -34,35 +35,39 @@ const createTray = async () => {
             label: 'Check for updates',
             type: 'normal',
             click: () => {
-                const {Notification} = require('electron').remote
-                const {autoUpdater} = require('electron-updater')
-
-                autoUpdater.once('update-available', () => {
-                    const popup = new Notification({
-                        body: 'A new update is available\nIt will download automaticly',
-                        title: 'Worksnake updater'
+                if(!require('electron-is-dev')) {
+                    ipcRenderer.once('autoupdate.check.status', status => {
+                        switch(status) {
+                            case 1:
+                                new Notification({
+                                    body: 'A new update is available\nIt will download automaticly',
+                                    title: 'Worksnake updater'
+                                }).show()
+                                break
+                            case 0:
+                                new Notification({
+                                    body: 'You are running the latest version',
+                                    title: 'Worksnake updater'
+                                }).show()
+                                break
+                            case -1:
+                                new Notification({
+                                    body: 'Failed to check for updates',
+                                    title: 'Worksnake updater'
+                                }).show()
+                                break
+                            default:
+                                break
+                        }
                     })
 
-                    popup.show()
-                })
-                    
-                autoUpdater.once('update-not-available', () => {
-                    const popup = new Notification({
-                        body: 'You are running the latest version',
+                    ipcRenderer.emit('autoupdater.check')
+                }else {
+                    new Notification({
+                        body: 'Can\'t check for updates in dev mode',
                         title: 'Worksnake updater'
-                    })
-
-                    popup.show()
-                })
-
-                autoUpdater.checkForUpdates().catch(() => {
-                    const popup = new Notification({
-                        body: 'Failed to check for updates',
-                        title: 'Worksnake updater'
-                    })
-
-                    popup.show()
-                })
+                    }).show()
+                }
             }
         },
         {
@@ -125,7 +130,7 @@ const createTray = async () => {
 
 createTray()
 
-//BrowserWindow.getAllWindows()[0].hide()
+BrowserWindow.getAllWindows()[0].hide()
 
 var configFile = null
 
