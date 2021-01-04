@@ -34,53 +34,35 @@ const createTray = async () => {
             label: 'Check for updates',
             type: 'normal',
             click: () => {
-                const {autoUpdater, Notification} = require('electron').remote
+                const {Notification} = require('electron').remote
+                const {autoUpdater} = require('electron-updater')
 
-                try {
-                    var n = null;
-
-                    autoUpdater.once('checking-for-update', () => {
-                        const popup = new Notification({
-                            body: 'Checking for updates',
-                            title: 'Worksnake updater'
-                        })
-
-                        popup.show()
-
-                        n = popup
+                autoUpdater.once('update-available', () => {
+                    const popup = new Notification({
+                        body: 'A new update is available\nIt will download automaticly',
+                        title: 'Worksnake updater'
                     })
-                    autoUpdater.once('update-available', () => {
 
-                        if(n) n.close()
-
-                        const popup = new Notification({
-                            body: 'A new update is available\nIt will be automaticly downloaded',
-                            title: 'Worksnake updater'
-                        })
-
-                        popup.show()
-                    })
-                    autoUpdater.once('update-not-available', () => {
-
-                        if(n) n.close()
-
-                        const popup = new Notification({
-                            body: 'You already have the latest version',
-                            title: 'Worksnake updater'
-                        })
-
-                        popup.show()
-                    })
+                    popup.show()
+                })
                     
-                    autoUpdater.checkForUpdates()
-                } catch {
+                autoUpdater.once('update-not-available', () => {
+                    const popup = new Notification({
+                        body: 'You are running the latest version',
+                        title: 'Worksnake updater'
+                    })
+
+                    popup.show()
+                })
+
+                autoUpdater.checkForUpdates().catch(() => {
                     const popup = new Notification({
                         body: 'Failed to check for updates',
                         title: 'Worksnake updater'
                     })
 
                     popup.show()
-                }
+                })
             }
         },
         {

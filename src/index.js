@@ -1,4 +1,5 @@
-const {app, BrowserWindow, ipcMain, autoUpdater, dialog} = require('electron')
+const {app, BrowserWindow, ipcMain, dialog} = require('electron')
+const {autoUpdater} = require('electron-updater')
 
 app.allowRendererProcessReuse = false
 
@@ -114,32 +115,23 @@ ipcMain.on('statistics.break', () => {
     fs.appendFileSync(path.join(app.getPath('userData'), 'statistics'), `${date.toISOString()}_break;`)
 })
 
-try {
-    const server = 'https://hazel-worksnake.vercel.app'
-    const feed = `${server}/update/${process.platform}/${app.getVersion()}`
+autoUpdater.checkForUpdates().catch()
+setTimeout(() => {
+    autoUpdater.checkForUpdates().catch()
+}, 15 * 60 * 1000)
 
-    autoUpdater.setFeedURL(feed)
-
-    autoUpdater.checkForUpdates()
-    setTimeout(() => {
-        try {
-            autoUpdater.checkForUpdates()
-        } catch {}
-    }, 10 * 60 * 1000)
-
-    autoUpdater.on('update-downloaded', async () => {
-        const response = await dialog.showMessageBox(null, {
-            message: 'A new update is available and will be installed next restart\nRestart now?',
-            title: 'Update available',
-            type: 'info',
-            buttons: [
-                'install',
-                'cancel'
-            ]
-        })
-
-        if(response.response === 0) {
-            autoUpdater.quitAndInstall()
-        }
+autoUpdater.on('update-downloaded', async () => {
+    const response = await dialog.showMessageBox(null, {
+        message: 'A new update is available and will be installed next restart\nRestart now?',
+        title: 'Update available',
+        type: 'info',
+        buttons: [
+            'Restart and install now',
+            'I\'ll restart later'
+        ]
     })
-} catch {}
+
+    if(response.response === 0) {
+        autoUpdater.quitAndInstall()
+    }
+})
