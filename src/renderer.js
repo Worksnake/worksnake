@@ -1,4 +1,4 @@
-const {Tray, Menu, nativeImage, app, BrowserWindow} = require('electron').remote
+const {Tray, Menu, app, BrowserWindow} = require('electron').remote
 
 const path = require('path')
 const fs = require('fs')
