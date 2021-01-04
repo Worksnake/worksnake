@@ -5,7 +5,7 @@ const fs = require('fs')
 
 var tray;
 const createTray = async () => {
-    tray = new Tray(nativeImage.createFromPath(path.join(__dirname, 'assets', 'logo.png')))
+    tray = new Tray(path.join(__dirname, 'assets', 'icon.png'))
     const menu = Menu.buildFromTemplate([
         {
             label: 'Quit',
@@ -143,7 +143,7 @@ const createTray = async () => {
 
 createTray()
 
-BrowserWindow.getAllWindows()[0].hide()
+//BrowserWindow.getAllWindows()[0].hide()
 
 var configFile = null
 
