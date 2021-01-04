@@ -1,35 +1,27 @@
 {
   "name": "worksnake",
   "productName": "worksnake",
-  "version": "2.10.2",
+  "version": "2.10.3",
   "description": "My Electron application description",
   "main": "src/index.js",
   "scripts": {
-    "start": "electron-forge start",
-    "package": "electron-forge package",
-    "make": "electron-forge make",
-    "make:32": "electron-forge make --arch=ia32",
-    "publish": "electron-forge publish",
-    "rebuild": "npm rebuild --runtime=electron --target=10.1.5 --disturl=https://atom.io/download/atom-shell --abi=82"
+    "start": "electron .",
+    "build": "electron-builder build",
+    "dist": "electron-builder --publish always"
   },
   "keywords": [],
-  "author": "Tijnb",
-  "license": "MIT",
-  "config": {
-    "forge": "./forge.config.js"
+  "author": {
+    "name": "112batman"
   },
+  "license": "MIT",
   "dependencies": {
     "auto-launch": "^5.0.5",
     "chart.js": "^2.9.4",
     "electron-squirrel-startup": "^1.0.0"
   },
   "devDependencies": {
-    "@electron-forge/cli": "^6.0.0-beta.54",
-    "@electron-forge/maker-deb": "^6.0.0-beta.54",
-    "@electron-forge/maker-squirrel": "^6.0.0-beta.54",
-    "@electron-forge/maker-zip": "^6.0.0-beta.54",
-    "@electron-forge/publisher-github": "^6.0.0-beta.54",
     "electron": "10.1.5",
+    "electron-builder": "^22.9.1",
     "node-abi": "^2.19.3"
   }
 }

@@ -11,5 +11,8 @@ src/tmp.js
 .vscode/
 *.code-workspace
 
-#Github token
-env/githubToken.js
+#logs
+yarn-error.log
+
+#env
+electron-builder.env
