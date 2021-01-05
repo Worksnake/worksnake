@@ -125,7 +125,9 @@ autoUpdater.on('update-downloaded', async () => {
     })
 
     if(response.response === 0) {
-        autoUpdater.quitAndInstall()
+        setImmediate(() => {
+            autoUpdater.quitAndInstall()
+        })
     }
 })
 
