@@ -80,12 +80,10 @@ const createPopup = data => {
     })
 
     var cancelable
-    if(data.cancelable === null || data.cancelable || undefined) {
-        cancelable = true
-    }else if(data.cancelable === false) {
+    if(data.cancelable === null || data.cancelable === undefined) {
         cancelable = false
     }else {
-        cancelable = true
+        cancelable = data.cancelable
     }
 
     window.loadURL(`data:text/html,<script>const id = ${window.id}; const interval = ${data.interval}; const time = ${data.time}; const cancel = ${data.cancel}; const cancelable = ${cancelable};</script>${require('fs').readFileSync(path.join(__dirname, 'popup.html'))}`)
