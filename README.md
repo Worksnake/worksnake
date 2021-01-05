@@ -6,9 +6,6 @@
 Worksnake is a simple program that reminds you of taking breaks, you can read more on [our website](https://worksnake.github.io)
 
 ## Download
-Releases can be found [here](https://hazel-worksnake.vercel.app) or on the [releases github repo](https://github.com/worksnake/worksnake-releases/releases)\
+Releases can be found on the [releases github repo](https://github.com/worksnake/worksnake-releases/releases)\
 \
-Builds for MacOS and Linux can be found [here](Downloads.md), note that these do not support autoupdate (yet)
-
-### Note:
-Worksnake is still work in progress, things may be unfinished or bugged
+Builds for MacOS and Linux will be available soon
