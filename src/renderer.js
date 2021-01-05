@@ -61,7 +61,7 @@ const createTray = async () => {
                         }
                     })
 
-                    ipcRenderer.emit('autoupdate.check')
+                    ipcRenderer.send('autoupdate.check')
                 }else {
                     new Notification({
                         body: 'Can\'t check for updates in dev mode',
@@ -130,7 +130,7 @@ const createTray = async () => {
 
 createTray()
 
-//BrowserWindow.getAllWindows()[0].hide()
+BrowserWindow.getAllWindows()[0].hide()
 
 var configFile = null
 
