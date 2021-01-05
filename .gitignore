@@ -16,3 +16,7 @@ yarn-error.log
 
 #env
 electron-builder.env
+
+#old icons
+build/icon.old.xcf
+build/icon.old.png
