@@ -19,7 +19,7 @@
     "chart.js": "^2.9.4",
     "electron-is-dev": "^1.2.0",
     "electron-squirrel-startup": "^1.0.0",
-    "electron-updater": "3"
+    "electron-updater": "^4.3.5"
   },
   "devDependencies": {
     "electron": "10.1.5",
