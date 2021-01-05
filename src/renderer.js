@@ -36,7 +36,7 @@ const createTray = async () => {
             type: 'normal',
             click: () => {
                 if(!require('electron-is-dev')) {
-                    ipcRenderer.once('autoupdate.check.status', status => {
+                    ipcRenderer.once('autoupdate.check.status', (e, status) => {
                         switch(status) {
                             case 1:
                                 new Notification({
@@ -61,7 +61,7 @@ const createTray = async () => {
                         }
                     })
 
-                    ipcRenderer.emit('autoupdater.check')
+                    ipcRenderer.emit('autoupdate.check')
                 }else {
                     new Notification({
                         body: 'Can\'t check for updates in dev mode',
@@ -130,7 +130,7 @@ const createTray = async () => {
 
 createTray()
 
-BrowserWindow.getAllWindows()[0].hide()
+//BrowserWindow.getAllWindows()[0].hide()
 
 var configFile = null
 

@@ -146,10 +146,8 @@ if(!require('electron-is-dev')) {
             e.reply('autoupdate.check.status', 0)
         })
 
-        autoUpdater.checkForUpdates().catch(() => {
-            autoUpdater.once('update-not-available', () => {
-                e.reply('autoupdate.check.status', -1)
-            })
+        await autoUpdater.checkForUpdates().catch(() => {
+            e.reply('autoupdate.check.status', -1)
         })
     })
 }
