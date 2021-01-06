@@ -1,0 +1,20 @@
+env:
+  GH_TOKEN: ENCRYPTED[!e1c7f8b8f55672232ec6fb6424b9907b8d32c42a1530c097d5483670e188ed9cab1c1242dedfb86eb734a28b9410eb54!]
+
+osx_task:
+  name: Build for osx
+  macos_instance:
+    image: catelina-xcode
+  install_nvm_script: curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash
+  install_node_script: nvm install 14
+  install_dependecies_script: yarn
+  build_script: yarn dist
+
+linux_task:
+  name: Build for linux
+  container:
+    image: electronuserland/builder:12
+  install_nvm_script: curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash
+  install_node_script: nvm install 14
+  install_dependecies_script: yarn
+  build_script: yarn dist

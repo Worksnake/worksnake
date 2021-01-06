@@ -20,3 +20,7 @@ electron-builder.env
 #old icons
 build/icon.old.xcf
 build/icon.old.png
+
+#old ci config
+.travis.old.yml
+.appveyor.old.yml
