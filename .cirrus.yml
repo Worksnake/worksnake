@@ -17,4 +17,5 @@ linux_task:
   install_nvm_script: curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash
   install_yarn_script: npm i -g yarn
   install_dependecies_script: yarn
+  install_snapcraft_script: snap install snapcraft --classic
   build_script: yarn dist
