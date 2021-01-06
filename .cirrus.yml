@@ -6,7 +6,7 @@ osx_task:
   macos_instance:
     image: catelina-xcode
   install_nvm_script: curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash
-  install_node_script: nvm install 14
+  install_yarn_script: npm i yarn -g
   install_dependecies_script: yarn
   build_script: yarn dist
 
@@ -15,7 +15,6 @@ linux_task:
   container:
     image: electronuserland/builder:12
   install_nvm_script: curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash
-  chmod_nvm_script: chmod +x $HOME/.nvm/nvm.sh install 14
-  install_node_script: $HOME/.nvm/nvm.sh install 14
+  install_yarn_script: npm i -g yarn
   install_dependecies_script: yarn
   build_script: yarn dist
