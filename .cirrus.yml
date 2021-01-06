@@ -19,3 +19,19 @@ linux_task:
   install_dependecies_script: yarn
   install_snapcraft_script: snap install snapcraft --classic
   build_script: yarn dist
+
+win32_task:
+  name: Build for win32
+  windows_container:
+    image: cirrusci/windowsservercore:2019
+  download_nvm_script:
+    - ps: Invoke-WebRequest -Uri https://github.com/coreybutler/nvm-windows/releases/download/1.1.7/nvm-noinstall.zip -OutFile $env:userprofile\nvm-noinstall.zip
+  create_nvm_folder_script:
+    - ps: mkdir $env:userprofile\nvm
+  extract_nvm_script:
+    - ps: Expand-Archive $env:userprofile\nvm-noinstall.zip -DestinationPath $env:userprofile\nvm
+  install_node_script:
+    - ps: $env:userprofile\nvm\nvm.exe install 12
+  install_yarn_script: npm i -g yarn
+  install_dependecies_script: yarn
+  build_script: yarn dist
