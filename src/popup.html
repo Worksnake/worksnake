@@ -100,7 +100,11 @@
                     return
                 }
 
-                if(cursorScreenPoint.x !== prev.x || cursorScreenPoint.y !== prev.y) {
+                //cursorScreenPoint.x !== prev.x || cursorScreenPoint.y !== prev.y
+                square = (num) => {
+                    return num * num
+                }
+                if(Math.sqrt(square(prev.x - cursorScreenPoint.x) - square(prev.y - cursorScreenPoint.y)) > 5) {
                     t = time
                     el2.innerHTML = `${t} seconds left`
                     el.style.width = `${100 - Math.floor(100 / time * t)}%`
