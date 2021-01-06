@@ -18,8 +18,7 @@ matrix:
         - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
 
     - os: linux
-      dist: trusty
-      sudo: required
+      dist: xenial
       services: docker
       language: generic
 
