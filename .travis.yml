@@ -3,6 +3,10 @@ language: node_js
 node_js:
   - '14.15.0'
 
+env:
+  global:
+    secure: LkXNePnzXXUtKf41SbjP2a37Fj93030ElswQg5JuAyW8ppuIlsouK6RfwVU496DuAV8v9d8GBAx+FBP90Pt5sKxrnZyISdQnMaT+kKxw3Jpra9zYNrEo7Rdnu+LEbS9oNGxvq/QxAvHWSACqVVabAjnwWeSzigjopYtGb3gUHGqvuGs4otU+o0ez5oRksYZF2FN99hy05K9+65wmRwiIwILSYZZmcfrfGyAokefa6Az3auu2RukSZjSwpB7WhZ2CS8xi5UTPSuhgd8onpgEcqJsIgRTfDaHRmCNygPo8HK0fIAnQ8vYnyEf+X7+kcUG4Ljd1rgHsjnwZOV4PeEbGmXme4mUw640SkkU+a6vNuStuoI20ulWaPfRqHApnQQpexZVVXxsWOu+XU8N6kqJ8vQA8JKPtiM+pBu/fN2jVddPd11E50hBX5qDUVBZdbmOEw3qmSvkk9Imnv09LSZCrfQEXH6aG/E6uUsMq7RM/Wffbj1plp1DFKIbioD3Z6gbJ4i8mMoX1lW7IwIIu6e1Uo4zfT2oViExEVAYuUjDgsuZIZwcZShq/vqdCTq6vq9oPjHSbb4+TYfnjn/md3yIkogktuI0oHqqKj0rIgFCV4YcMZ4+QyL88qwo95hINLlpC5YdDOj55EkmmJZD1a+CedqstsA9pklKEGpdgwjT2BMI=
+
 matrix:
   include:
     - os: osx
