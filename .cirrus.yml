@@ -14,6 +14,7 @@ linux_task:
   name: Build for linux
   container:
     image: snapcore/snapcraft:latest
+  install_curl_script: apt-get install curl
   install_nvm_script: curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash
   install_yarn_script: npm i -g yarn
   install_dependecies_script: yarn
