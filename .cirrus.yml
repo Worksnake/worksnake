@@ -14,7 +14,7 @@ linux_task:
   name: Build for linux
   container:
     image: electronuserland/builder:12
-  install_nvm_script: curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash
+  install_nvm_script: sudo bash curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash
   install_node_script: $HOME/.nvm/nvm.sh install 14
   install_dependecies_script: yarn
   build_script: yarn dist
