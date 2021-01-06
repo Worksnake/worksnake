@@ -15,7 +15,6 @@ linux_task:
   container:
     image: electronuserland/builder:12
   install_nvm_script: curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash
-  add_nvm_to_bash_script: export NVM_DIR="$HOME/.nvm" && [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" && [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-  install_node_script: bash nvm install 14
+  install_node_script: $HOME/.nvm/nvm.sh install 14
   install_dependecies_script: yarn
   build_script: yarn dist
