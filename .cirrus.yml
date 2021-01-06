@@ -13,11 +13,10 @@ osx_task:
 linux_task:
   name: Build for linux
   container:
-    image: electronuserland/builder:12
+    image: snapcore/snapcraft:latest
   install_nvm_script: curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash
   install_yarn_script: npm i -g yarn
   install_dependecies_script: yarn
-  install_snapcraft_script: snap install snapcraft --classic
   build_script: yarn dist
 
 win32_task:
@@ -25,7 +24,7 @@ win32_task:
   windows_container:
     image: cirrusci/windowsservercore:2019
   download_nvm_script:
-    - ps: Invoke-WebRequest -Uri https://github.com/coreybutler/nvm-windows/releases/download/1.1.7/nvm-noinstall.zip -OutFile $env:userprofile\nvm-noinstall.zip
+    - ps: Invoke-WebRequest -Uri https://github-production-release-asset-2e65be.s3.amazonaws.com/24268127/1c36d812-9d8b-11e8-9bfc-d4e93e08bed3?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20210106%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20210106T163401Z&X-Amz-Expires=300&X-Amz-Signature=e4928935bc36b5a8ef393be093b5d2c2e7d1520ae1c1c1783bfced6d66bd82fa&X-Amz-SignedHeaders=host&actor_id=53775078&key_id=0&repo_id=24268127&response-content-disposition=attachment%3B%20filename%3Dnvm-noinstall.zip&response-content-type=application%2Foctet-stream -OutFile $env:userprofile\nvm-noinstall.zip
   create_nvm_folder_script:
     - ps: mkdir $env:userprofile\nvm
   extract_nvm_script:
