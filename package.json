@@ -1,7 +1,7 @@
 {
   "name": "worksnake",
   "productName": "worksnake",
-  "version": "2.10.19",
+  "version": "2.10.20",
   "description": "My Electron application description",
   "main": "src/index.js",
   "scripts": {
@@ -19,7 +19,8 @@
     "chart.js": "^2.9.4",
     "electron-is-dev": "^1.2.0",
     "electron-squirrel-startup": "^1.0.0",
-    "electron-updater": "^4.3.5"
+    "electron-updater": "^4.3.5",
+    "request": "^2.88.2"
   },
   "devDependencies": {
     "electron": "10.1.5",

@@ -1,4 +1,4 @@
-const {app, BrowserWindow, ipcMain, dialog} = require('electron')
+const {app, BrowserWindow, ipcMain, dialog, shell} = require('electron')
 const {autoUpdater} = require('electron-updater')
 
 app.allowRendererProcessReuse = false
@@ -113,7 +113,9 @@ ipcMain.on('statistics.break', () => {
     fs.appendFileSync(path.join(app.getPath('userData'), 'statistics'), `${date.toISOString()}_break;`)
 })
 
-autoUpdater.on('update-downloaded', async () => {
+autoUpdater.autoDownload = false
+
+/*autoUpdater.on('update-downloaded', async () => {
     const response = await dialog.showMessageBox(null, {
         message: 'A new update is available and will be installed next restart\nRestart now?',
         title: 'Update available',
@@ -129,6 +131,35 @@ autoUpdater.on('update-downloaded', async () => {
             autoUpdater.quitAndInstall()
         })
     }
+})*/
+
+var wasPrompted = false
+
+autoUpdater.on('update-available', 
+/**
+ * @param {import('electron-updater').UpdateInfo} info
+ */
+async info => {
+    if(wasPrompted) return
+
+    wasPrompted = true
+
+    const response = await dialog.showMessageBox(null, {
+        message: 'A new update is available',
+        title: 'Update available',
+        type: 'info',
+        buttons: [
+            'Download and install now (Worksnake will restart)',
+            'Don\'t install'
+        ]
+    })
+
+    if(response.response === 0) {
+        const filename = 'worksnake_update_install.' + path.extname(info.files[0].url)
+        require('request')(`https://github.com/Worksnake/worksnake-releases/releases/download/v${info.version}/${info.files[0].url}`).pipe(fs.createWriteStream(path.join(app.getPath('temp'), filename))).on('close', () => {
+            shell.openPath(path.join(app.getPath('temp'), filename))
+        })
+    }
 })
 
 if(!require('electron-is-dev')) {
@@ -140,6 +171,7 @@ if(!require('electron-is-dev')) {
 
 ipcMain.on('autoupdate.check', async e => {
     autoUpdater.once('update-available', () => {
+        wasPrompted = false
         e.reply('autoupdate.check.status', 1)
     })
 
