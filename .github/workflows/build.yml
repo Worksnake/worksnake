@@ -33,5 +33,5 @@ jobs:
       - name: Install dependecies
         run: yarn
 
-      - name: Build ${{ matrix.os }} ${{ matrix.arch }}
+      - name: Build for ${{ matrix.os }} ${{ matrix.arch }}
         run: yarn dist
