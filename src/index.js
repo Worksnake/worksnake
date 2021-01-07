@@ -170,16 +170,19 @@ if(!require('electron-is-dev')) {
 }
 
 ipcMain.on('autoupdate.check', async e => {
+    wasPrompted = false
+
     autoUpdater.once('update-available', () => {
-        wasPrompted = false
         e.reply('autoupdate.check.status', 1)
     })
 
     autoUpdater.once('update-not-available', () => {
+        wasPrompted = false
         e.reply('autoupdate.check.status', 0)
     })
 
     autoUpdater.checkForUpdates().catch(() => {
+        wasPrompted = false
         e.reply('autoupdate.check.status', -1)
     })
 })
