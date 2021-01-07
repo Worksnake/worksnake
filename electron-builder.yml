@@ -11,6 +11,10 @@ asar: true
 mac:
   category: public.app-category.healthcare-fitness
 
+linux:
+  target: AppImage
+  category: Office
+
 publish:
   provider: github
   repo: worksnake-releases
