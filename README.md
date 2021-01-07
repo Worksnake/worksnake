@@ -7,5 +7,6 @@ Worksnake is a simple program that reminds you of taking breaks, you can read mo
 
 ## Download
 Releases can be found on the [releases github repo](https://github.com/worksnake/worksnake-releases/releases)\
-\
-Builds for MacOS and Linux will be available soon
+<img src="docs/windows.svg" width=50px>
+<img src="docs/apple.svg" width=50px>
+<img src="docs/linux.svg" width=50px>
