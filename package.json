@@ -1,7 +1,7 @@
 {
   "name": "worksnake",
   "productName": "worksnake",
-  "version": "2.10.20-alpha",
+  "version": "2.10.22-alpha",
   "description": "My Electron application description",
   "main": "src/index.js",
   "scripts": {

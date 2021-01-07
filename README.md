@@ -1,4 +1,4 @@
-[![AppVeyor build status](https://img.shields.io/appveyor/build/112batman/worksnake)](https://ci.appveyor.com/project/112batman/worksnake/build/)
+[![Build status](https://github.com/Worksnake/worksnake/workflows/build/badge.svg)](https://github.com/Worksnake/worksnake/actions?query=workflow%3Abuild)
 [![Version](https://img.shields.io/github/v/release/Worksnake/worksnake-releases)](https://github.com/Worksnake/worksnake-releases/releases/latest)
 [![Downloads@latest](https://img.shields.io/github/downloads/Worksnake/worksnake-releases/latest/total)]()
 
