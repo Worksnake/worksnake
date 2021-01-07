@@ -11,7 +11,6 @@ jobs:
           - windows-latest
         arch:
           - 'x64'
-          - 'x86'
     
     runs-on: ${{ matrix.os }}
 
@@ -20,7 +19,7 @@ jobs:
         run: echo "Running ${{ matrix.os }} ${{ matrix.arch }}"
 
       - name: Checkout
-        uses: a actions/checkout@v2
+        uses: actions/checkout@v2
       
       - name: Install node
         uses: actions/setup-node@v2
