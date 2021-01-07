@@ -20,5 +20,5 @@ publish:
   repo: worksnake-releases
   owner: Worksnake
   vPrefixedTagName: true
-  releaseType: draft
+  releaseType: release
   publishAutoUpdate: true
