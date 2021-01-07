@@ -3,6 +3,9 @@ on: [push]
 
 jobs:   
   build:
+    env:
+      GH_TOKEN: ${{ secrets.WORKSNAKE_PERSONAL_TOKEN }}
+
     strategy:
       matrix:
         os:
