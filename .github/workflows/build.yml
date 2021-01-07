@@ -1,0 +1,38 @@
+name: build
+on: [push]
+
+jobs:   
+  build:
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+          - macos-latest
+          - windows-latest
+        arch:
+          - 'x64'
+          - 'x86'
+    
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Echo config
+        run: echo "Running ${{ matrix.os }} ${{ matrix.arch }}"
+
+      - name: Checkout
+        uses: a actions/checkout@v2
+      
+      - name: Install node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '15'
+          architecture: ${{ matrix.arch }}
+      
+      - name: Install yarn
+        run: npm i -g yarn
+
+      - name: Install dependecies
+        run: yarn
+
+      - name: Build ${{ matrix.os }} ${{ matrix.arch }}
+        run: yarn dist

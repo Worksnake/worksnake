@@ -24,3 +24,4 @@ build/icon.old.png
 #old ci config
 .travis.old.yml
 .appveyor.old.yml
+.cirrus.old.yml
