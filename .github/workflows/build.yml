@@ -30,7 +30,7 @@ jobs:
         with:
           path: |
             **/node_modules
-          key: ${{ matrix.os }}-${{ hashFiles(**/yarn.lock) }}
+          key: ${{ matrix.os }}-${{ hashFiles('**/yarn.lock') }}
       
       - name: Install node
         uses: actions/setup-node@v2
