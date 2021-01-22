@@ -1,5 +1,6 @@
 const {app, BrowserWindow, ipcMain, dialog, shell} = require('electron')
-const {autoUpdater} = require('electron-updater')
+//Disabled until electon-updater is fixed
+//const {autoUpdater} = require('electron-updater')
 
 app.allowRendererProcessReuse = false
 
@@ -16,6 +17,7 @@ const autoLaunch = new AutoLaunch({
 })
 
 const fs = require('fs')
+const AutoUpdater = require('./AutoUpdater')
 
 if(!fs.existsSync(path.join(app.getPath('userData'), 'autoLaunch'))) {
     fs.writeFileSync(path.join(app.getPath('userData'), 'autoLaunch'), '')
@@ -113,9 +115,10 @@ ipcMain.on('statistics.break', () => {
     fs.appendFileSync(path.join(app.getPath('userData'), 'statistics'), `${date.toISOString()}_break;`)
 })
 
-autoUpdater.autoDownload = false
+//Code disabled to electron-updater is fixed
+/*autoUpdater.autoDownload = false
 
-/*autoUpdater.on('update-downloaded', async () => {
+autoUpdater.on('update-downloaded', async () => {
     const response = await dialog.showMessageBox(null, {
         message: 'A new update is available and will be installed next restart\nRestart now?',
         title: 'Update available',
@@ -135,11 +138,9 @@ autoUpdater.autoDownload = false
 
 var wasPrompted = false
 
-autoUpdater.on('update-available', 
-/**
- * @param {import('electron-updater').UpdateInfo} info
- */
-async info => {
+const autoUpdater = new AutoUpdater()
+
+autoUpdater.on('update-downloaded', async path => {
     if(wasPrompted) return
 
     wasPrompted = true
@@ -149,16 +150,14 @@ async info => {
         title: 'Update available',
         type: 'info',
         buttons: [
-            'Download and install now (Worksnake will restart)',
+            'Install now (Worksnake will restart)',
             'Don\'t install'
         ]
     })
 
     if(response.response === 0) {
-        const filename = 'worksnake_update_install.' + path.extname(info.files[0].url)
-        require('request')(`https://github.com/Worksnake/worksnake-releases/releases/download/v${info.version}/${info.files[0].url}`).pipe(fs.createWriteStream(path.join(app.getPath('temp'), filename))).on('close', () => {
-            shell.openPath(path.join(app.getPath('temp'), filename))
-        })
+        shell.openPath(path)
+        app.exit()
     }
 })
 
@@ -177,12 +176,10 @@ ipcMain.on('autoupdate.check', async e => {
     })
 
     autoUpdater.once('update-not-available', () => {
-        wasPrompted = false
         e.reply('autoupdate.check.status', 0)
     })
 
     autoUpdater.checkForUpdates().catch(() => {
-        wasPrompted = false
         e.reply('autoupdate.check.status', -1)
     })
 })
