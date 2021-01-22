@@ -19,6 +19,6 @@ publish:
   provider: github
   repo: worksnake-releases
   owner: Worksnake
-  vPrefixedTagName: true
-  releaseType: prerelease
+  vPrefixedTagName: false
+  releaseType: draft
   publishAutoUpdate: true
