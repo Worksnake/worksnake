@@ -7,7 +7,7 @@
 
     <style>
         .hidden {
-            display: none;
+            display: none !important;
         }
     </style>
 </head>
@@ -15,5 +15,7 @@
     <h3 class="hidden" id="no_data">No data available</h3>
     <canvas id="canvas"></canvas>
     <script src="statistics.js"></script>
+    <button onclick="resetStats()">Reset statistics</button>
+    <button onclick="displayStats()">Reload statistics</button>
 </body>
 </html>
