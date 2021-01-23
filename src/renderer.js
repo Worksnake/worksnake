@@ -162,6 +162,7 @@ for(var i = 0; i < config.tasks.length; i++) {
         interval: task.interval,
         time: task.time,
         cancel: task.cancel,
-        cancelable: task.cancelable
+        cancelable: task.cancelable,
+        blockInput: task.blockInput
     })
 }

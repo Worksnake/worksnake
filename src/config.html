@@ -20,6 +20,7 @@
             <th>Time (seconds)</th>
             <th>Snooze (minutes)</th>
             <th>Cancelable</th>
+            <th>Block input</th>
         </tr>
     </table>
     <script>
@@ -43,16 +44,18 @@
                 const time = Number(el.firstChild.nextSibling.innerText)
                 const cancel = Number(el.firstChild.nextSibling.nextSibling.innerText)
                 const cancelable = el.firstChild.nextSibling.nextSibling.nextSibling.firstChild.checked
+                const blockInput = el.firstChild.nextSibling.nextSibling.nextSibling.nextSibling.firstChild.checked
 
                 tasks.push({
                     interval: interval === NaN ? null : interval * 60,
                     time: time === NaN ? null : time,
                     cancel: cancel === NaN ? null : cancel * 60,
-                    cancelable: cancelable
+                    cancelable: cancelable,
+                    blockInput: blockInput
                 })
             }
 
-            tasks = tasks.filter(t => t.interval && t.time && t.cancel && t.cancelable !== null)
+            tasks = tasks.filter(t => t.interval && t.time && t.cancel && t.cancelable !== null && t.blockInput !== null)
 
             cfg = JSON.stringify({tasks})
         }
@@ -128,6 +131,23 @@
                 })
             }
 
+            {
+                const td = document.createElement('td')
+
+                const check = document.createElement('input')
+                check.type = 'checkbox'
+
+                check.checked = task.blockInput
+
+                td.appendChild(check)
+
+                row.appendChild(td)
+
+                check.addEventListener('input', () => {
+                    processConfig()
+                })
+            }
+
             el.appendChild(row)
         }
 
@@ -140,10 +160,10 @@
             const row = document.createElement('tr')
             row.classList.add('configRow')
 
-            for(var i = 0; i < 4; i++) {
+            for(var i = 0; i < 5; i++) {
                 const td = document.createElement('td')
                 
-                if(i !== 3) {
+                if(i < 3) {
                     td.contentEditable = true
                     td.style = "border-style: solid; border-color: black; border-width: 5px;"
                     row.appendChild(td)

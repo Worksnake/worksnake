@@ -1,4 +1,4 @@
-const {app, BrowserWindow, ipcMain, dialog, shell} = require('electron')
+const {app, BrowserWindow, ipcMain, dialog, shell, screen} = require('electron')
 //Disabled until electon-updater is fixed
 //const {autoUpdater} = require('electron-updater')
 
@@ -89,6 +89,52 @@ const createPopup = data => {
     }
 
     window.loadURL(`data:text/html,<script>const id = ${window.id}; const interval = ${data.interval}; const time = ${data.time}; const cancel = ${data.cancel}; const cancelable = ${cancelable};</script>${require('fs').readFileSync(path.join(__dirname, 'popup.html'))}`)
+
+    var blockInput
+    if(data.blockInput === null || data.blockInput === undefined) {
+        blockInput = false
+    }else {
+        blockInput = data.blockInput
+    }
+
+    if(blockInput) {
+        /**
+         * @type {BrowserWindow[]}
+         */
+        const inputBlockers = []
+
+        screen.getAllDisplays().forEach(display => {
+            const blocker = new BrowserWindow({
+                frame: false,
+                transparent: true,
+                skipTaskbar: true,
+                alwaysOnTop: true,
+
+                x: display.bounds.x,
+                y: display.bounds.y
+            })
+
+            blocker.maximize()
+            blocker.show()
+
+            inputBlockers.push(blocker)
+        })
+        
+        window.show()
+
+        window.on('hide', () => {
+            inputBlockers.forEach(blocker => blocker.hide())
+        })
+
+        window.on('show', () => {
+            inputBlockers.forEach(blocker => blocker.show())
+            window.show()
+        })
+
+        window.on('closed', () => {
+            inputBlockers.forEach(blocker => blocker.destroy())
+        })
+    }
 }
 
 ipcMain.on('popup', (e, data) => {
