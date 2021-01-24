@@ -1,53 +1,63 @@
-const {EventEmitter} = require('events')
-const rp = require('request-promise')
-const {app} = require('electron')
-const semver = require('semver')
-const fs = require('fs')
-const path = require('path')
+const { EventEmitter } = require("events");
+const rp = require("request-promise");
+const { app } = require("electron");
+const semver = require("semver");
+const fs = require("fs");
+const path = require("path");
 
 module.exports = class AutoUpdater extends EventEmitter {
-    owner = 'Worksnake'
-    repo = 'worksnake-releases'
+	owner = "Worksnake";
+	repo = "worksnake-releases";
 
-    baseUrl = `https://api.github.com/repos/${this.owner}/${this.repo}`
-    
-    currentVersion = app.getVersion()
+	baseUrl = `https://api.github.com/repos/${this.owner}/${this.repo}`;
 
-    findAppropriateArtifact(tag) {
-        switch(process.platform) {
-            case 'win32':
-                return tag.assets.filter(asset => asset.name.endsWith('.exe'))[0]
-            case 'linux':
-                return tag.assets.filter(asset => asset.name.endsWith('.AppImage'))[0]
-            case 'darwin':
-                return tag.assets.filter(asset => asset.name.endsWith('.dmg'))[0]
-        }
-    }
+	currentVersion = app.getVersion();
 
-    async checkForUpdates() {
-        const latest = await rp(`${this.baseUrl}/releases/latest`, {
-            json: true,
+	findAppropriateArtifact(tag) {
+		switch (process.platform) {
+			case "win32":
+				return tag.assets.filter((asset) => asset.name.endsWith(".exe"))[0];
+			case "linux":
+				return tag.assets.filter((asset) =>
+					asset.name.endsWith(".AppImage")
+				)[0];
+			case "darwin":
+				return tag.assets.filter((asset) => asset.name.endsWith(".dmg"))[0];
+		}
+	}
 
-            headers: {
-                "User-Agent": "required/1.0.0"
-            }
-        })
+	async checkForUpdates() {
+		const latest = await rp(`${this.baseUrl}/releases/latest`, {
+			json: true,
 
-        if(semver.satisfies(semver.coerce(latest.tag_name), `>${semver.coerce(this.currentVersion)}`)) {
-            this.emit('update-available')
+			headers: {
+				"User-Agent": "required/1.0.0",
+			},
+		});
 
-            const artifact = this.findAppropriateArtifact(latest)
-            const artifactUrl = artifact.browser_download_url
+		if (
+			semver.satisfies(
+				semver.coerce(latest.tag_name),
+				`>${semver.coerce(this.currentVersion)}`
+			)
+		) {
+			this.emit("update-available");
 
-            const savePath = path.join(app.getPath('temp'), `worksnake-update${path.extname(artifact.name)}`)
+			const artifact = this.findAppropriateArtifact(latest);
+			const artifactUrl = artifact.browser_download_url;
 
-            rp(artifactUrl)
-                .pipe(fs.createWriteStream(savePath))
-                .on('close', () => {
-                    this.emit('update-downloaded', savePath)
-                })
-        }else {
-            this.emit('update-not-available')
-        }
-    }
-} 
+			const savePath = path.join(
+				app.getPath("temp"),
+				`worksnake-update${path.extname(artifact.name)}`
+			);
+
+			rp(artifactUrl)
+				.pipe(fs.createWriteStream(savePath))
+				.on("close", () => {
+					this.emit("update-downloaded", savePath);
+				});
+		} else {
+			this.emit("update-not-available");
+		}
+	}
+};

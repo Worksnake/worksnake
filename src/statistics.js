@@ -1,68 +1,68 @@
-const fs = require('fs')
-const {app} = require('electron').remote
-const path = require('path')
-const Chart = require('chart.js')
+const fs = require("fs");
+const { app } = require("electron").remote;
+const path = require("path");
+const Chart = require("chart.js");
 
 function displayStats() {
-    if(!fs.existsSync(path.join(app.getPath('userData'), 'statistics'))) fs.writeFileSync(path.join(app.getPath('userData'), 'statistics'), '')
+	if (!fs.existsSync(path.join(app.getPath("userData"), "statistics")))
+		fs.writeFileSync(path.join(app.getPath("userData"), "statistics"), "");
 
-    const stats = fs.existsSync(path.join(app.getPath('userData'), 'statistics')) ? fs.readFileSync(path.join(app.getPath('userData'), 'statistics'), {
-        encoding: 'utf-8'
-    }) : ''
+	const stats = fs.existsSync(path.join(app.getPath("userData"), "statistics"))
+		? fs.readFileSync(path.join(app.getPath("userData"), "statistics"), {
+				encoding: "utf-8",
+		  })
+		: "";
 
-    if(stats === '') {
-        document.getElementById('no_data').classList.remove('hidden')
-        document.getElementById('canvas').classList.add('hidden')
-    }else {
-        document.getElementById('no_data').classList.add('hidden')
-        document.getElementById('canvas').classList.remove('hidden')
+	if (stats === "") {
+		document.getElementById("no_data").classList.remove("hidden");
+		document.getElementById("canvas").classList.add("hidden");
+	} else {
+		document.getElementById("no_data").classList.add("hidden");
+		document.getElementById("canvas").classList.remove("hidden");
 
-        const ctx = document.getElementById('canvas').getContext('2d')
-        new Chart(ctx, {
-            type: 'pie',
-            data: {
-                labels: ['took', 'skipped', 'postponed'],
-                datasets: [
-                    {
-                        backgroundColor: [
-                            'green',
-                            'red',
-                            'orange'
-                        ],
-                        data: (() => {
-                            var took = 0
-                            var skipped = 0
-                            var postponed = 0
-                
-                            const points = stats.split(';')
-                    
-                            for(var i = 0; i < points.length; i++) {
-                                const point = points[i]
-                    
-                                const date = new Date(point.split('_')[0])
-                                const type = point.split('_')[1]
-                
-                                if(type === 'break') {
-                                    took++
-                                }else if(type === 'skip') {
-                                    skipped++
-                                }else if(type === 'postpone') {
-                                    postponed++
-                                }
-                            }
-                
-                            return [took, skipped, postponed]
-                        })()
-                    }
-                ]
-            }
-        })
-    }
+		const ctx = document.getElementById("canvas").getContext("2d");
+		new Chart(ctx, {
+			type: "pie",
+			data: {
+				labels: ["took", "skipped", "postponed"],
+				datasets: [
+					{
+						backgroundColor: ["green", "red", "orange"],
+						data: (() => {
+							var took = 0;
+							var skipped = 0;
+							var postponed = 0;
+
+							const points = stats.split(";");
+
+							for (var i = 0; i < points.length; i++) {
+								const point = points[i];
+
+								const date = new Date(point.split("_")[0]);
+								const type = point.split("_")[1];
+
+								if (type === "break") {
+									took++;
+								} else if (type === "skip") {
+									skipped++;
+								} else if (type === "postpone") {
+									postponed++;
+								}
+							}
+
+							return [took, skipped, postponed];
+						})(),
+					},
+				],
+			},
+		});
+	}
 }
 
 function resetStats() {
-    if(fs.existsSync(path.join(app.getPath('userData'), 'statistics'))) fs.unlinkSync(path.join(app.getPath('userData'), 'statistics'))
-    displayStats()
+	if (fs.existsSync(path.join(app.getPath("userData"), "statistics")))
+		fs.unlinkSync(path.join(app.getPath("userData"), "statistics"));
+	displayStats();
 }
 
-displayStats()
+displayStats();
