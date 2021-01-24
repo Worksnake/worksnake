@@ -27,6 +27,9 @@
   "devDependencies": {
     "electron": "10.1.5",
     "electron-builder": "^22.9.1",
-    "node-abi": "^2.19.3"
+    "eslint": "^7.18.0",
+    "eslint-config-prettier": "^7.2.0",
+    "node-abi": "^2.19.3",
+    "prettier": "^2.2.1"
   }
 }
