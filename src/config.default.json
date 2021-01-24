@@ -1,0 +1,11 @@
+{
+    "tasks": [
+        {
+            "interval": 1200,
+            "time": 20,
+            "cancel": 300,
+            "cancelable": true,
+            "blockInput": false
+        }
+    ]
+}

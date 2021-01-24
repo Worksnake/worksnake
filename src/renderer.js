@@ -142,27 +142,10 @@ createTray();
 
 BrowserWindow.getAllWindows()[0].hide();
 
-var configFile = null;
+const configFile = require('fs').existsSync(path.join(app.getPath("userData"), "config.json")) ? require('fs').readFileSync(path.join(app.getPath("userData"), "config.json")) : null
+const defaultConfig = require('fs').readFileSync(path.join(__dirname, "config.default.json"));
 
-if (fs.existsSync(path.join(app.getPath("userData"), "config.json"))) {
-	try {
-		const c = require("fs").readFileSync(
-			path.join(app.getPath("userData"), "config.json")
-		);
-
-		configFile = JSON.parse(c);
-	// eslint-disable-next-line no-empty
-	} catch {}
-}
-
-const defaultConfig = require(path.join(__dirname, "config.default.js"));
-
-var config;
-try {
-	config = JSON.parse(configFile || defaultConfig);
-} catch {
-	config = configFile || defaultConfig;
-}
+const config = JSON.parse(configFile || defaultConfig)
 
 fs.writeFileSync(
 	path.join(app.getPath("userData"), "config.json"),
