@@ -7,7 +7,8 @@
   "scripts": {
     "start": "electron .",
     "build": "electron-builder build",
-    "dist": "electron-builder --publish always"
+    "dist": "electron-builder --publish always",
+    "lint": "prettier --write src/ && eslint src/"
   },
   "keywords": [],
   "author": {
