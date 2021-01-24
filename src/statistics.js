@@ -38,6 +38,7 @@ function displayStats() {
 							for (var i = 0; i < points.length; i++) {
 								const point = points[i];
 
+								// eslint-disable-next-line no-unused-vars
 								const date = new Date(point.split("_")[0]);
 								const type = point.split("_")[1];
 
@@ -59,6 +60,7 @@ function displayStats() {
 	}
 }
 
+// eslint-disable-next-line no-unused-vars
 function resetStats() {
 	if (fs.existsSync(path.join(app.getPath("userData"), "statistics")))
 		fs.unlinkSync(path.join(app.getPath("userData"), "statistics"));

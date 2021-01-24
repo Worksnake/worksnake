@@ -151,6 +151,7 @@ if (fs.existsSync(path.join(app.getPath("userData"), "config.json"))) {
 		);
 
 		configFile = JSON.parse(c);
+	// eslint-disable-next-line no-empty
 	} catch {}
 }
 
