@@ -102,7 +102,12 @@ const createPopup = (data) => {
 			data.cancel
 		}; const cancelable = ${cancelable};</script>${require("fs").readFileSync(
 			path.join(__dirname, "popup.html")
-		)}`
+		)}`.replace(
+			'<script src="popup.html.js"></script>',
+			`<script>${fs.readFileSync(
+				path.join(__dirname, "popup.html.js")
+			)}</script>`
+		)
 	);
 
 	var blockInput;
