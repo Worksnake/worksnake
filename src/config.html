@@ -27,6 +27,10 @@
 			const path = require("path");
 			const { app } = require("electron").remote;
 
+			const currentProfile = require("electron").ipcRenderer.sendSync(
+				"getCurrentProfile"
+			);
+
 			var cfg = require("fs").readFileSync(
 				path.join(app.getPath("userData"), "config.json"),
 				{
@@ -73,11 +77,18 @@
 						t.blockInput !== null
 				);
 
-				cfg = JSON.stringify({ tasks });
+				const c = JSON.parse(cfg);
+				if (currentProfile === "default") {
+					c.tasks = tasks;
+				} else {
+					c.profiles[currentProfile].tasks = tasks;
+				}
+				cfg = JSON.stringify(c);
 			}
 		</script>
 		<script>
-			const c = JSON.parse(cfg);
+			var c = JSON.parse(cfg);
+			if (currentProfile !== "default") c = c.profiles[currentProfile];
 
 			const el = document.getElementById("config");
 

@@ -13,9 +13,11 @@ const fs = require("fs");
 
 var tray;
 const createTray = async () => {
-	tray = new Tray(
-		nativeImage.createFromPath(path.join(__dirname, "assets", "icon.png"))
-	);
+	tray = tray
+		? tray
+		: new Tray(
+				nativeImage.createFromPath(path.join(__dirname, "assets", "icon.png"))
+		  );
 	const menu = Menu.buildFromTemplate([
 		{
 			label: "Quit",
@@ -132,20 +134,75 @@ const createTray = async () => {
 				window.loadFile(path.join(__dirname, "statistics.html"));
 			},
 		},
+		{
+			label: "Profiles",
+			type: "submenu",
+			/**
+			 * @type {Electron.MenuItem[]}
+			 */
+			submenu: (() => {
+				const profiles = ipcRenderer.sendSync("getAllProfiles");
+				const current = ipcRenderer.sendSync("getCurrentProfile");
+
+				const items = [];
+
+				profiles.forEach((name) => {
+					/**
+					 * @type {Electron.MenuItem}
+					 */
+					const item = {
+						checked: current === name,
+						type: "checkbox",
+						label: name,
+						click: () => {
+							ipcRenderer.send("switchProfile", name);
+							createTray();
+						},
+					};
+
+					items.push(item);
+				});
+
+				return items;
+			})(),
+		},
 	]);
 
 	tray.setToolTip("WorkSnake");
 	tray.setContextMenu(menu);
 };
 
-createTray();
-
 BrowserWindow.getAllWindows()[0].hide();
 
-const configFile = require('fs').existsSync(path.join(app.getPath("userData"), "config.json")) ? require('fs').readFileSync(path.join(app.getPath("userData"), "config.json")) : null
-const defaultConfig = require('fs').readFileSync(path.join(__dirname, "config.default.json"));
+const configFile = require("fs").existsSync(
+	path.join(app.getPath("userData"), "config.json")
+)
+	? require("fs").readFileSync(
+			path.join(app.getPath("userData"), "config.json")
+	  )
+	: null;
+const defaultConfig = require("fs").readFileSync(
+	path.join(__dirname, "config.default.json")
+);
 
-const config = JSON.parse(configFile || defaultConfig)
+/**
+ * @typedef {object} task
+ * @property {number} interval
+ * @property {number} time
+ * @property {number} cancel
+ * @property {boolean} cancelable
+ * @property {boolean} blockInput
+ */
+
+/**
+ * @type {{
+ * tasks: task[],
+ * profiles: Object<string, {
+ * tasks: task[]
+ * }>
+ * }}
+ */
+const config = JSON.parse(configFile || defaultConfig);
 
 fs.writeFileSync(
 	path.join(app.getPath("userData"), "config.json"),
@@ -158,11 +215,35 @@ fs.writeFileSync(
 for (var i = 0; i < config.tasks.length; i++) {
 	const task = config.tasks[i];
 
-	require("electron").ipcRenderer.send("popup", {
-		interval: task.interval,
-		time: task.time,
-		cancel: task.cancel,
-		cancelable: task.cancelable,
-		blockInput: task.blockInput,
+	require("electron").ipcRenderer.send("applyPopup", {
+		profile: "default",
+		task: {
+			interval: task.interval,
+			time: task.time,
+			cancel: task.cancel,
+			cancelable: task.cancelable,
+			blockInput: task.blockInput,
+		},
 	});
 }
+
+for (const name in config.profiles) {
+	const profile = config.profiles[name];
+
+	profile.tasks.forEach((task) =>
+		require("electron").ipcRenderer.send("applyPopup", {
+			profile: name,
+			task: {
+				interval: task.interval,
+				time: task.time,
+				cancel: task.cancel,
+				cancelable: task.cancelable,
+				blockInput: task.blockInput,
+			},
+		})
+	);
+}
+
+require("electron").ipcRenderer.send("switchProfile", "default");
+
+createTray();

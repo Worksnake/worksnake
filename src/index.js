@@ -152,10 +152,60 @@ const createPopup = (data) => {
 	}
 };
 
-ipcMain.on("popup", (e, data) => {
-	setTimeout(() => {
+const active = new Map();
+var currentProfile = "";
+const profiles = new Map();
+
+function setPopup(data) {
+	const timeout = setTimeout(() => {
 		createPopup(data);
+		active
+			.get(currentProfile)
+			.splice(active.get(currentProfile).indexOf(timeout), 1);
 	}, data.interval * 1000);
+
+	if (active.has(currentProfile)) {
+		active.get(currentProfile).push(timeout);
+	} else {
+		active.set(currentProfile, [timeout]);
+	}
+}
+
+ipcMain.on("popup", (e, data) => {
+	setPopup(data);
+});
+
+ipcMain.on("applyPopup", (e, data) => {
+	if (profiles.has(data.profile)) {
+		profiles.get(data.profile).tasks.push(data.task);
+	} else {
+		profiles.set(data.profile, {
+			tasks: [data.task],
+		});
+	}
+});
+
+ipcMain.on("switchProfile", (e, newProfile) => {
+	if (active.has(currentProfile)) {
+		active.get(currentProfile).forEach((timeout) => {
+			clearTimeout(timeout);
+		});
+		active.delete(currentProfile);
+	}
+
+	currentProfile = newProfile;
+
+	profiles.get(currentProfile).tasks.forEach((task) => {
+		setPopup(task);
+	});
+});
+
+ipcMain.on("getCurrentProfile", (e) => {
+	e.returnValue = currentProfile;
+});
+
+ipcMain.on("getAllProfiles", (e) => {
+	e.returnValue = [...profiles.keys()];
 });
 
 ipcMain.on("statistics.postpone", () => {
