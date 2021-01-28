@@ -30,9 +30,9 @@ function processConfig() {
 				.checked;
 
 		tasks.push({
-			interval: interval === NaN ? null : interval * 60,
-			time: time === NaN ? null : time,
-			cancel: cancel === NaN ? null : cancel * 60,
+			interval: isNaN(interval) ? null : interval * 60,
+			time: isNaN(time) ? null : time,
+			cancel: isNaN(cancel) ? null : cancel * 60,
 			cancelable: cancelable,
 			blockInput: blockInput,
 		});
@@ -148,6 +148,7 @@ for (var i = 0; i < c.tasks.length; i++) {
 
 processConfig();
 
+// eslint-disable-next-line no-unused-vars
 function newRow() {
 	const el = document.getElementById("config");
 
@@ -182,6 +183,7 @@ function newRow() {
 	el.appendChild(row);
 }
 
+// eslint-disable-next-line no-unused-vars
 function save() {
 	require("fs").writeFileSync(
 		path.join(app.getPath("userData"), "config.json"),
