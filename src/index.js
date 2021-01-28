@@ -222,6 +222,7 @@ ipcMain.on("createProfile", (e, name) => {
 		var config = JSON.parse(
 			fs.readFileSync(path.join(app.getPath("userData"), "config.json"))
 		);
+		if(!config.profiles) config.profiles = {}
 		config.profiles[name] = {
 			tasks: [],
 		};
