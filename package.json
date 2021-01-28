@@ -2,7 +2,7 @@
 	"name": "worksnake",
 	"productName": "worksnake",
 	"version": "2.14.0",
-	"description": "My Electron application description",
+	"description": "Worksnake is a simple program that reminds you of taking breaks",
 	"main": "src/index.js",
 	"scripts": {
 		"start": "electron .",
