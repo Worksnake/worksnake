@@ -213,6 +213,32 @@ ipcMain.on("getAllProfiles", (e) => {
 	e.returnValue = [...profiles.keys()];
 });
 
+ipcMain.on("createProfile", (e, name) => {
+	if (!profiles.has(name)) {
+		profiles.set(name, {
+			tasks: [],
+		});
+
+		var config = JSON.parse(
+			fs.readFileSync(path.join(app.getPath("userData"), "config.json"))
+		);
+		config.profiles[name] = {
+			tasks: [],
+		};
+		fs.writeFileSync(
+			path.join(app.getPath("userData"), "config.json"),
+			JSON.stringify(config)
+		);
+	}
+});
+
+ipcMain.on("addProfile", (e, name) => {
+	if (!profiles.has(name))
+		profiles.set(name, {
+			tasks: [],
+		});
+});
+
 ipcMain.on("statistics.postpone", () => {
 	const date = new Date();
 

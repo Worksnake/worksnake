@@ -733,6 +733,13 @@ dmg-builder@22.9.1:
     js-yaml "^3.14.0"
     sanitize-filename "^1.6.3"
 
+doc-ready@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/doc-ready/-/doc-ready-1.0.4.tgz#37f5391969cff994303fdfef2e5d50357f8164d3"
+  integrity sha1-N/U5GWnP+ZQwP9/vLl1QNX+BZNM=
+  dependencies:
+    eventie "^1"
+
 doctrine@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/doctrine/-/doctrine-3.0.0.tgz#addebead72a6574db783639dc87a121773973961"
@@ -801,6 +808,13 @@ electron-is-dev@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/electron-is-dev/-/electron-is-dev-1.2.0.tgz#2e5cea0a1b3ccf1c86f577cee77363ef55deb05e"
   integrity sha512-R1oD5gMBPS7PVU8gJwH6CtT0e6VSoD0+SzSnYpNm+dBkcijgA+K7VAMHDfnRq/lkKPZArpzplTW6jfiMYosdzw==
+
+electron-prompt@^1.6.1:
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/electron-prompt/-/electron-prompt-1.6.1.tgz#0ce4d413ea851b7acb04ed07577b8cda027fedef"
+  integrity sha512-b/Gh8CZwuECMOa7BC7C1hVJRRPAXQiQaH0KWDR+whnet0Ff0X/8dhLOKkykttclfyL75LgmhalDp2QoR032r/Q==
+  dependencies:
+    doc-ready "^1.0.4"
 
 electron-publish@22.9.1:
   version "22.9.1"
@@ -1019,6 +1033,11 @@ esutils@^2.0.2:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/esutils/-/esutils-2.0.3.tgz#74d2eb4de0b8da1293711910d50775b9b710ef64"
   integrity sha512-kVscqXk4OCp68SZ0dkgEKVi6/8ij300KBWTJq32P/dYeWTSwK41WyTxalN1eRmA5Z9UU/LX9D7FWSmV9SAYx6g==
+
+eventie@^1:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/eventie/-/eventie-1.0.6.tgz#d4ffc8b0c2b5e493c2aa1b22cbe918d3aee74437"
+  integrity sha1-1P/IsMK15JPCqhsiy+kY067nRDc=
 
 extend@~3.0.2:
   version "3.0.2"

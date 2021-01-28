@@ -1,7 +1,7 @@
 {
 	"name": "worksnake",
 	"productName": "worksnake",
-	"version": "2.14.0",
+	"version": "2.14.1",
 	"description": "Worksnake is a simple program that reminds you of taking breaks",
 	"main": "src/index.js",
 	"scripts": {
@@ -19,6 +19,7 @@
 		"auto-launch": "^5.0.5",
 		"chart.js": "^2.9.4",
 		"electron-is-dev": "^1.2.0",
+		"electron-prompt": "^1.6.1",
 		"electron-squirrel-startup": "^1.0.0",
 		"electron-updater": "^4.3.5",
 		"request": "^2.88.2",

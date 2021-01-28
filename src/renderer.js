@@ -5,6 +5,7 @@ const {
 	BrowserWindow,
 	nativeImage,
 	Notification,
+	dialog,
 } = require("electron").remote;
 const { ipcRenderer } = require("electron");
 
@@ -144,6 +145,9 @@ const createTray = async () => {
 				const profiles = ipcRenderer.sendSync("getAllProfiles");
 				const current = ipcRenderer.sendSync("getCurrentProfile");
 
+				/**
+				 * @type {Electron.MenuItem[]}
+				 */
 				const items = [];
 
 				profiles.forEach((name) => {
@@ -161,6 +165,28 @@ const createTray = async () => {
 					};
 
 					items.push(item);
+				});
+
+				items.push({
+					label: "Create profile",
+					type: "normal",
+					click: () => {
+						require("electron-prompt")({
+							title: "What name should the profile have?",
+							type: "input",
+							label: "Name: ",
+						}).then((name) => {
+							if (name === undefined || name === null) {
+								dialog.showErrorBox(
+									"Error creating profile",
+									"The name must not be empty"
+								);
+							} else {
+								ipcRenderer.send("createProfile", name);
+								createTray();
+							}
+						});
+					},
 				});
 
 				return items;
@@ -229,6 +255,8 @@ for (var i = 0; i < config.tasks.length; i++) {
 
 for (const name in config.profiles) {
 	const profile = config.profiles[name];
+
+	require("electron").ipcRenderer.send("addProfile", name);
 
 	profile.tasks.forEach((task) =>
 		require("electron").ipcRenderer.send("applyPopup", {
