@@ -247,6 +247,8 @@ fs.writeFileSync(
 	}
 );
 
+require('electron').ipcRenderer.send('addProfile', 'default')
+
 for (var i = 0; i < config.tasks.length; i++) {
 	const task = config.tasks[i];
 
