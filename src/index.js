@@ -200,6 +200,10 @@ ipcMain.on("switchProfile", (e, newProfile) => {
 
 	currentProfile = newProfile;
 
+	if(!profiles.has(currentProfile)) profiles.set(currentProfile, {
+		tasks: []
+	})
+
 	profiles.get(currentProfile).tasks.forEach((task) => {
 		setPopup(task);
 	});
