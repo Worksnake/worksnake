@@ -150,23 +150,6 @@ const createTray = async () => {
 				 */
 				const items = [];
 
-				profiles.forEach((name) => {
-					/**
-					 * @type {Electron.MenuItem}
-					 */
-					const item = {
-						checked: current === name,
-						type: "checkbox",
-						label: name,
-						click: () => {
-							ipcRenderer.send("switchProfile", name);
-							createTray();
-						},
-					};
-
-					items.push(item);
-				});
-
 				items.push({
 					label: "Create profile",
 					type: "normal",
@@ -187,6 +170,23 @@ const createTray = async () => {
 							}
 						});
 					},
+				});
+
+				profiles.forEach((name) => {
+					/**
+					 * @type {Electron.MenuItem}
+					 */
+					const item = {
+						checked: current === name,
+						type: "checkbox",
+						label: name,
+						click: () => {
+							ipcRenderer.send("switchProfile", name);
+							createTray();
+						},
+					};
+
+					items.push(item);
 				});
 
 				return items;
