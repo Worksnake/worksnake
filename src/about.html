@@ -4,12 +4,31 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>About</title>
+
+		<script src="assets/showdown.min.js"></script><!--https://github.com/showdownjs/showdown-->
 	</head>
 	<body>
 		<p id="version"></p>
 		<script>
 			document.getElementById("version").innerHTML =
 				"Version: " + require("electron").remote.app.getVersion();
+		</script>
+		<div id="releaseNotes">Getting release notes...</div>
+		<script>
+			const showdown = require('showdown')
+			const rp = require('request-promise')
+
+			const converter = new showdown.Converter()
+
+			rp(`https://api.github.com/repos/Worksnake/worksnake-releases/releases/tags/v${require("electron").remote.app.getVersion()}`, {
+					json: true,
+
+					headers: {
+						"User-Agent": "required/1.0.0",
+					}
+				}).then(current => {
+					document.getElementById('releaseNotes').innerHTML = converter.makeHtml(current.body)
+				})
 		</script>
 	</body>
 </html>

@@ -1,7 +1,7 @@
 {
 	"name": "worksnake",
 	"productName": "worksnake",
-	"version": "2.17.0",
+	"version": "2.18.0",
 	"description": "Worksnake is a simple program that reminds you of taking breaks",
 	"main": "src/index.js",
 	"scripts": {
@@ -24,7 +24,8 @@
 		"electron-updater": "^4.3.5",
 		"request": "^2.88.2",
 		"request-promise": "^4.2.6",
-		"semver": "^7.3.4"
+		"semver": "^7.3.4",
+		"showdown": "^1.9.1"
 	},
 	"devDependencies": {
 		"babel-eslint": "^10.1.0",
