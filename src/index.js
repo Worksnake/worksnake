@@ -258,7 +258,7 @@ ipcMain.on("statistics.postpone", () => {
 	const date = new Date();
 
 	fs.appendFileSync(
-		path.join(app.getPath("userData"), "statistics"),
+		path.join(app.getPath("userData"), currentProfile === 'default' ? 'statistics' : `${currentProfile}__statistics`),
 		`${date.toISOString()}_postpone;`
 	);
 });
@@ -267,7 +267,7 @@ ipcMain.on("statistics.skip", () => {
 	const date = new Date();
 
 	fs.appendFileSync(
-		path.join(app.getPath("userData"), "statistics"),
+		path.join(app.getPath("userData"), currentProfile === 'default' ? 'statistics' : `${currentProfile}__statistics`),
 		`${date.toISOString()}_skip;`
 	);
 });
@@ -276,7 +276,7 @@ ipcMain.on("statistics.break", () => {
 	const date = new Date();
 
 	fs.appendFileSync(
-		path.join(app.getPath("userData"), "statistics"),
+		path.join(app.getPath("userData"), currentProfile === 'default' ? 'statistics' : `${currentProfile}__statistics`),
 		`${date.toISOString()}_break;`
 	);
 });

@@ -4,14 +4,14 @@ const path = require("path");
 const Chart = require("chart.js");
 
 function displayStats() {
-	if (!fs.existsSync(path.join(app.getPath("userData"), "statistics")))
-		fs.writeFileSync(path.join(app.getPath("userData"), "statistics"), "");
+	const currentProfile = require('electron').ipcRenderer.sendSync('getCurrentProfile')
 
-	const stats = fs.existsSync(path.join(app.getPath("userData"), "statistics"))
-		? fs.readFileSync(path.join(app.getPath("userData"), "statistics"), {
-				encoding: "utf-8",
-		  })
-		: "";
+	if (!fs.existsSync(path.join(app.getPath("userData"), currentProfile === 'default' ? 'statistics' : `${currentProfile}__statistics`)))
+		fs.writeFileSync(path.join(app.getPath("userData"), currentProfile === 'default' ? 'statistics' : `${currentProfile}__statistics`), "");
+
+	const stats = fs.readFileSync(path.join(app.getPath("userData"), currentProfile === 'default' ? 'statistics' : `${currentProfile}__statistics`), {
+		encoding: "utf-8",
+  	})
 
 	if (stats === "") {
 		document.getElementById("no_data").classList.remove("hidden");
