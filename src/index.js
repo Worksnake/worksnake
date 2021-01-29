@@ -207,6 +207,10 @@ ipcMain.on("switchProfile", (e, newProfile) => {
 	profiles.get(currentProfile).tasks.forEach((task) => {
 		setPopup(task);
 	});
+
+	var cfg = JSON.parse(fs.readFileSync(path.join(app.getPath("userData"), "config.json")))
+	cfg.latestProfile = currentProfile
+	fs.writeFileSync(path.join(app.getPath("userData"), "config.json"), JSON.stringify(cfg))
 });
 
 ipcMain.on("getCurrentProfile", (e) => {

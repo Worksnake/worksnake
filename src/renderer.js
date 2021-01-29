@@ -222,6 +222,7 @@ const defaultConfig = require("fs").readFileSync(
 
 /**
  * @type {{
+ * latestProfile: string
  * tasks: task[],
  * profiles: Object<string, {
  * tasks: task[]
@@ -229,6 +230,10 @@ const defaultConfig = require("fs").readFileSync(
  * }}
  */
 const config = JSON.parse(configFile || defaultConfig);
+
+if(config.latestProfile) {
+	if(config.latestProfile !== 'default' && !config.profiles[config.latestProfile]) config.latestProfile = 'default'
+}else config.latestProfile = 'default'
 
 fs.writeFileSync(
 	path.join(app.getPath("userData"), "config.json"),
@@ -272,6 +277,6 @@ for (const name in config.profiles) {
 	);
 }
 
-require("electron").ipcRenderer.send("switchProfile", "default");
+require("electron").ipcRenderer.send("switchProfile", config.latestProfile);
 
 createTray();
