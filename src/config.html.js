@@ -143,6 +143,22 @@ for (var i = 0; i < c.tasks.length; i++) {
 		});
 	}
 
+	{
+		const td = document.createElement('td')
+
+		const btn = document.createElement('button')
+		btn.onclick = () => {
+			row.classList.add('hidden')
+			row.firstChild.innerText = ''
+			processConfig()
+		}
+		btn.innerText = 'Delete'
+
+		td.appendChild(btn)
+
+		row.appendChild(td)
+	}
+
 	el.appendChild(row);
 }
 
@@ -155,7 +171,7 @@ function newRow() {
 	const row = document.createElement("tr");
 	row.classList.add("configRow");
 
-	for (var i = 0; i < 5; i++) {
+	for (var i = 0; i < 6; i++) {
 		const td = document.createElement("td");
 
 		if (i < 3) {
@@ -166,7 +182,7 @@ function newRow() {
 			td.addEventListener("input", () => {
 				processConfig();
 			});
-		} else {
+		} else if (i < 5) {
 			const check = document.createElement("input");
 			check.type = "checkbox";
 
@@ -177,6 +193,19 @@ function newRow() {
 			check.addEventListener("input", () => {
 				processConfig();
 			});
+		}else {
+			console.log('called')
+			const btn = document.createElement('button')
+			btn.onclick = () => {
+				row.classList.add('hidden')
+				row.firstChild.innerText = ''
+				processConfig()
+			}
+			btn.innerText = 'Delete'
+
+			td.appendChild(btn)
+
+			row.appendChild(td)
 		}
 	}
 
