@@ -144,19 +144,19 @@ for (var i = 0; i < c.tasks.length; i++) {
 	}
 
 	{
-		const td = document.createElement('td')
+		const td = document.createElement("td");
 
-		const btn = document.createElement('button')
+		const btn = document.createElement("button");
 		btn.onclick = () => {
-			row.classList.add('hidden')
-			row.firstChild.innerText = ''
-			processConfig()
-		}
-		btn.innerText = 'Delete'
+			row.classList.add("hidden");
+			row.firstChild.innerText = "";
+			processConfig();
+		};
+		btn.innerText = "Delete";
 
-		td.appendChild(btn)
+		td.appendChild(btn);
 
-		row.appendChild(td)
+		row.appendChild(td);
 	}
 
 	el.appendChild(row);
@@ -193,19 +193,19 @@ function newRow() {
 			check.addEventListener("input", () => {
 				processConfig();
 			});
-		}else {
-			console.log('called')
-			const btn = document.createElement('button')
+		} else {
+			console.log("called");
+			const btn = document.createElement("button");
 			btn.onclick = () => {
-				row.classList.add('hidden')
-				row.firstChild.innerText = ''
-				processConfig()
-			}
-			btn.innerText = 'Delete'
+				row.classList.add("hidden");
+				row.firstChild.innerText = "";
+				processConfig();
+			};
+			btn.innerText = "Delete";
 
-			td.appendChild(btn)
+			td.appendChild(btn);
 
-			row.appendChild(td)
+			row.appendChild(td);
 		}
 	}
 

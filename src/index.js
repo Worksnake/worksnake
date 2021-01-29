@@ -200,17 +200,23 @@ ipcMain.on("switchProfile", (e, newProfile) => {
 
 	currentProfile = newProfile;
 
-	if(!profiles.has(currentProfile)) profiles.set(currentProfile, {
-		tasks: []
-	})
+	if (!profiles.has(currentProfile))
+		profiles.set(currentProfile, {
+			tasks: [],
+		});
 
 	profiles.get(currentProfile).tasks.forEach((task) => {
 		setPopup(task);
 	});
 
-	var cfg = JSON.parse(fs.readFileSync(path.join(app.getPath("userData"), "config.json")))
-	cfg.latestProfile = currentProfile
-	fs.writeFileSync(path.join(app.getPath("userData"), "config.json"), JSON.stringify(cfg))
+	var cfg = JSON.parse(
+		fs.readFileSync(path.join(app.getPath("userData"), "config.json"))
+	);
+	cfg.latestProfile = currentProfile;
+	fs.writeFileSync(
+		path.join(app.getPath("userData"), "config.json"),
+		JSON.stringify(cfg)
+	);
 });
 
 ipcMain.on("getCurrentProfile", (e) => {
@@ -230,7 +236,7 @@ ipcMain.on("createProfile", (e, name) => {
 		var config = JSON.parse(
 			fs.readFileSync(path.join(app.getPath("userData"), "config.json"))
 		);
-		if(!config.profiles) config.profiles = {}
+		if (!config.profiles) config.profiles = {};
 		config.profiles[name] = {
 			tasks: [],
 		};

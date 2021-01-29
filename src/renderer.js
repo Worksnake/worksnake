@@ -231,9 +231,13 @@ const defaultConfig = require("fs").readFileSync(
  */
 const config = JSON.parse(configFile || defaultConfig);
 
-if(config.latestProfile) {
-	if(config.latestProfile !== 'default' && !config.profiles[config.latestProfile]) config.latestProfile = 'default'
-}else config.latestProfile = 'default'
+if (config.latestProfile) {
+	if (
+		config.latestProfile !== "default" &&
+		!config.profiles[config.latestProfile]
+	)
+		config.latestProfile = "default";
+} else config.latestProfile = "default";
 
 fs.writeFileSync(
 	path.join(app.getPath("userData"), "config.json"),
