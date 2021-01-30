@@ -5,6 +5,8 @@ jobs:
   build:
     env:
       GH_TOKEN: ${{ secrets.WORKSNAKE_PERSONAL_TOKEN }}
+      ELECTRON_CACHE: $HOME/.cache/electron
+      ELECTRON_BUILDER_CACHE: $HOME/.cache/electron-builder
 
     strategy:
       matrix:
@@ -30,7 +32,25 @@ jobs:
         with:
           path: |
             **/node_modules
-          key: ${{ matrix.os }}-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ matrix.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Cache electron and electron-builder
+        uses: actions/cache@v2
+        with:
+          path: |
+            $HOME/.cache/electron
+            $HOME/.cache/electron-builder
+          key: ${{ matrix.os }}-electron
+
+      - name: Set global node_modules path env
+        run: echo "global_node_modules_path=$(npm root -g)" >> $GITHUB_ENV
+
+      - name: Cache global node_modules
+        uses: actions/cache@v2
+        with:
+          path: |
+            ${{ env.global_node_modules }}
+          key: ${{ matrix.os }}-global_node_modules
       
       - name: Install node
         uses: actions/setup-node@v2
@@ -42,7 +62,7 @@ jobs:
         run: npm i -g yarn
 
       - name: Install dependecies
-        if: steps.cache-node_modules.outputs.cache.hit != 'true'
+        if: steps.cache-node_modules.outputs.cache-hit != 'true'
         run: yarn --frozen-lockfile
 
       - name: Build for ${{ matrix.os }} ${{ matrix.arch }}
