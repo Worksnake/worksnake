@@ -42,25 +42,6 @@ jobs:
             $HOME/.cache/electron-builder
           key: ${{ matrix.os }}-electron
 
-      - name: Set global node_modules path env
-        run: echo "global_node_modules_path=$(npm root -g)" >> $GITHUB_ENV
-
-      - name: Cache global node_modules
-        uses: actions/cache@v2
-        with:
-          path: |
-            ${{ env.global_node_modules_path }}
-          key: ${{ matrix.os }}-global_node_modules
-      
-      - name: Install node
-        uses: actions/setup-node@v2
-        with:
-          node-version: '15'
-          architecture: ${{ matrix.arch }}
-      
-      - name: Install yarn
-        run: npm i -g yarn
-
       - name: Install dependecies
         if: steps.cache-node_modules.outputs.cache-hit != 'true'
         run: yarn --frozen-lockfile
