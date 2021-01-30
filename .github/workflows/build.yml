@@ -49,7 +49,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: |
-            ${{ env.global_node_modules }}
+            ${{ env.global_node_modules_path }}
           key: ${{ matrix.os }}-global_node_modules
       
       - name: Install node
