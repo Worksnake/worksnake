@@ -117,7 +117,14 @@ const createPopup = (data) => {
 		blockInput = data.blockInput;
 	}
 
-	if (blockInput) {
+	var blockOutput;
+	if (data.blockOutput === null || data.blockOutput === undefined) {
+		blockOutput = false;
+	} else {
+		blockOutput = data.blockOutput;
+	}
+
+	if (blockInput || blockOutput) {
 		/**
 		 * @type {BrowserWindow[]}
 		 */
@@ -126,7 +133,7 @@ const createPopup = (data) => {
 		screen.getAllDisplays().forEach((display) => {
 			const blocker = new BrowserWindow({
 				frame: false,
-				transparent: true,
+				transparent: blockOutput ? false : true,
 				skipTaskbar: true,
 				alwaysOnTop: true,
 
@@ -258,7 +265,12 @@ ipcMain.on("statistics.postpone", () => {
 	const date = new Date();
 
 	fs.appendFileSync(
-		path.join(app.getPath("userData"), currentProfile === 'default' ? 'statistics' : `${currentProfile}__statistics`),
+		path.join(
+			app.getPath("userData"),
+			currentProfile === "default"
+				? "statistics"
+				: `${currentProfile}__statistics`
+		),
 		`${date.toISOString()}_postpone;`
 	);
 });
@@ -267,7 +279,12 @@ ipcMain.on("statistics.skip", () => {
 	const date = new Date();
 
 	fs.appendFileSync(
-		path.join(app.getPath("userData"), currentProfile === 'default' ? 'statistics' : `${currentProfile}__statistics`),
+		path.join(
+			app.getPath("userData"),
+			currentProfile === "default"
+				? "statistics"
+				: `${currentProfile}__statistics`
+		),
 		`${date.toISOString()}_skip;`
 	);
 });
@@ -276,7 +293,12 @@ ipcMain.on("statistics.break", () => {
 	const date = new Date();
 
 	fs.appendFileSync(
-		path.join(app.getPath("userData"), currentProfile === 'default' ? 'statistics' : `${currentProfile}__statistics`),
+		path.join(
+			app.getPath("userData"),
+			currentProfile === "default"
+				? "statistics"
+				: `${currentProfile}__statistics`
+		),
 		`${date.toISOString()}_break;`
 	);
 });

@@ -28,6 +28,9 @@ function processConfig() {
 		const blockInput =
 			el.firstChild.nextSibling.nextSibling.nextSibling.nextSibling.firstChild
 				.checked;
+		const blockOutput =
+			el.firstChild.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.firstChild
+				.checked;
 
 		tasks.push({
 			interval: isNaN(interval) ? null : interval * 60,
@@ -35,6 +38,7 @@ function processConfig() {
 			cancel: isNaN(cancel) ? null : cancel * 60,
 			cancelable: cancelable,
 			blockInput: blockInput,
+			blockOutput: blockOutput
 		});
 	}
 
@@ -44,7 +48,8 @@ function processConfig() {
 			t.time &&
 			t.cancel &&
 			t.cancelable !== null &&
-			t.blockInput !== null
+			t.blockInput !== null &&
+			t.blockOutput !== null
 	);
 
 	const c = JSON.parse(cfg);
@@ -146,6 +151,23 @@ for (var i = 0; i < c.tasks.length; i++) {
 	{
 		const td = document.createElement("td");
 
+		const check = document.createElement("input");
+		check.type = "checkbox";
+
+		check.checked = task.blockOutput;
+
+		td.appendChild(check);
+
+		row.appendChild(td);
+
+		check.addEventListener("input", () => {
+			processConfig();
+		});
+	}
+
+	{
+		const td = document.createElement("td");
+
 		const btn = document.createElement("button");
 		btn.onclick = () => {
 			row.classList.add("hidden");
@@ -171,7 +193,7 @@ function newRow() {
 	const row = document.createElement("tr");
 	row.classList.add("configRow");
 
-	for (var i = 0; i < 6; i++) {
+	for (var i = 0; i < 7; i++) {
 		const td = document.createElement("td");
 
 		if (i < 3) {
@@ -182,7 +204,7 @@ function newRow() {
 			td.addEventListener("input", () => {
 				processConfig();
 			});
-		} else if (i < 5) {
+		} else if (i < 6) {
 			const check = document.createElement("input");
 			check.type = "checkbox";
 
