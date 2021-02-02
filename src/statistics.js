@@ -62,8 +62,10 @@ function displayStats() {
 
 // eslint-disable-next-line no-unused-vars
 function resetStats() {
-	if (fs.existsSync(path.join(app.getPath("userData"), "statistics")))
-		fs.unlinkSync(path.join(app.getPath("userData"), "statistics"));
+	const currentProfile = require('electron').ipcRenderer.sendSync('getCurrentProfile')
+
+	if (fs.existsSync(path.join(app.getPath("userData"), currentProfile === 'default' ? 'statistics' : `${currentProfile}__statistics`)))
+		fs.unlinkSync(path.join(app.getPath("userData"), currentProfile === 'default' ? 'statistics' : `${currentProfile}__statistics`));
 	displayStats();
 }
 
