@@ -4,14 +4,41 @@ const path = require("path");
 const Chart = require("chart.js");
 
 function displayStats() {
-	const currentProfile = require('electron').ipcRenderer.sendSync('getCurrentProfile')
+	const currentProfile = require("electron").ipcRenderer.sendSync(
+		"getCurrentProfile"
+	);
 
-	if (!fs.existsSync(path.join(app.getPath("userData"), currentProfile === 'default' ? 'statistics' : `${currentProfile}__statistics`)))
-		fs.writeFileSync(path.join(app.getPath("userData"), currentProfile === 'default' ? 'statistics' : `${currentProfile}__statistics`), "");
+	if (
+		!fs.existsSync(
+			path.join(
+				app.getPath("userData"),
+				currentProfile === "default"
+					? "statistics"
+					: `${currentProfile}__statistics`
+			)
+		)
+	)
+		fs.writeFileSync(
+			path.join(
+				app.getPath("userData"),
+				currentProfile === "default"
+					? "statistics"
+					: `${currentProfile}__statistics`
+			),
+			""
+		);
 
-	const stats = fs.readFileSync(path.join(app.getPath("userData"), currentProfile === 'default' ? 'statistics' : `${currentProfile}__statistics`), {
-		encoding: "utf-8",
-  	})
+	const stats = fs.readFileSync(
+		path.join(
+			app.getPath("userData"),
+			currentProfile === "default"
+				? "statistics"
+				: `${currentProfile}__statistics`
+		),
+		{
+			encoding: "utf-8",
+		}
+	);
 
 	if (stats === "") {
 		document.getElementById("no_data").classList.remove("hidden");
@@ -62,10 +89,28 @@ function displayStats() {
 
 // eslint-disable-next-line no-unused-vars
 function resetStats() {
-	const currentProfile = require('electron').ipcRenderer.sendSync('getCurrentProfile')
+	const currentProfile = require("electron").ipcRenderer.sendSync(
+		"getCurrentProfile"
+	);
 
-	if (fs.existsSync(path.join(app.getPath("userData"), currentProfile === 'default' ? 'statistics' : `${currentProfile}__statistics`)))
-		fs.unlinkSync(path.join(app.getPath("userData"), currentProfile === 'default' ? 'statistics' : `${currentProfile}__statistics`));
+	if (
+		fs.existsSync(
+			path.join(
+				app.getPath("userData"),
+				currentProfile === "default"
+					? "statistics"
+					: `${currentProfile}__statistics`
+			)
+		)
+	)
+		fs.unlinkSync(
+			path.join(
+				app.getPath("userData"),
+				currentProfile === "default"
+					? "statistics"
+					: `${currentProfile}__statistics`
+			)
+		);
 	displayStats();
 }
 

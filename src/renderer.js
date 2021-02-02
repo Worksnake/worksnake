@@ -247,7 +247,7 @@ fs.writeFileSync(
 	}
 );
 
-require('electron').ipcRenderer.send('addProfile', 'default')
+require("electron").ipcRenderer.send("addProfile", "default");
 
 for (var i = 0; i < config.tasks.length; i++) {
 	const task = config.tasks[i];
@@ -260,7 +260,7 @@ for (var i = 0; i < config.tasks.length; i++) {
 			cancel: task.cancel,
 			cancelable: task.cancelable,
 			blockInput: task.blockInput,
-			blockOutput: task.blockOutput
+			blockOutput: task.blockOutput,
 		},
 	});
 }

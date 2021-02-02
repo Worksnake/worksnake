@@ -29,8 +29,8 @@ function processConfig() {
 			el.firstChild.nextSibling.nextSibling.nextSibling.nextSibling.firstChild
 				.checked;
 		const blockOutput =
-			el.firstChild.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.firstChild
-				.checked;
+			el.firstChild.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling
+				.firstChild.checked;
 
 		tasks.push({
 			interval: isNaN(interval) ? null : interval * 60,
@@ -38,7 +38,7 @@ function processConfig() {
 			cancel: isNaN(cancel) ? null : cancel * 60,
 			cancelable: cancelable,
 			blockInput: blockInput,
-			blockOutput: blockOutput
+			blockOutput: blockOutput,
 		});
 	}
 
